@@ -7,7 +7,7 @@ if (!process.env.GOOGLEPLACESKEY) {
 }
 
 // Function called when post request is received with lat/long
-// Makes a request to 
+// Makes a request to
 exports.getRestaurants = function(req, res) {
   console.log('Receiving a request!', req.body);
   var lat = req.body.lat;
@@ -17,7 +17,7 @@ exports.getRestaurants = function(req, res) {
 
   // Make google places API call with lat and long
   locations.search({
-    keyword: 'food',
+    keyword: 'asian food',
     location: [lat, lng],
     radius: 5000
   }, function(err, response) {

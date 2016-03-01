@@ -12,9 +12,8 @@ if(!process.env.USERNAME){
 // Use heroku config vars or use own local copy of API keys
 var mongooseUsername = process.env.USERNAME || config.username;
 var mongoosePassword = process.env.PASSWORD || config.password;
-
 // Connect to mongo lab account
-mongoose.connect('mongodb://'+mongooseUsername+':'+mongoosePassword+'@ds011158.mongolab.com:11158/lunchline-js')
+mongoose.connect('mongodb://'+mongooseUsername+':'+mongoosePassword+'@ds011168.mlab.com:11168/lunchline')
 console.log('L19 Connected to Mongoose');
 
 // Serve static files
