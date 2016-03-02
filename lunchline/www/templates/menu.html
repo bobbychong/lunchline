@@ -6,7 +6,7 @@
                 <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
             </ion-nav-buttons>
         </ion-nav-bar>
-        <ion-nav-view name="side-menu21"></ion-nav-view>
+        <ion-nav-view name="side-menu"></ion-nav-view>
     </ion-side-menu-content>
     <ion-side-menu side="left">
         <ion-header-bar class="bar-stable">
@@ -18,7 +18,7 @@
                 <ion-item ui-sref="menu.list" menu-close="">Restaurants</ion-item>
                 <ion-item>Favorites</ion-item>
                 <ion-item ui-sref="menu.profile" menu-close="">Profile</ion-item>
-                <ion-item ui-sref="menu.home" menu-close="">Log Out</ion-item>
+                <ion-item ng-click="logout()" ui-sref="menu.home" menu-close="">Log Out</ion-item>
             </ion-list>
         </ion-content>
     </ion-side-menu>
