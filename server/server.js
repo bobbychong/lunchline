@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var mongoose = require('mongoose');
+
 var restController = require('./restaurant/restController.js');
 var methodOverride  = require('method-override');
 var jsonParser = require('body-parser').json();
@@ -17,7 +18,6 @@ var mongoosePassword = process.env.PASSWORD || config.password;
 mongoose.connect('mongodb://'+mongooseUsername+':'+mongoosePassword+'@ds011168.mlab.com:11168/lunchline')
 console.log('L19 Connected to Mongoose');
 
-
 var allowCrossDomain = function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
@@ -29,13 +29,6 @@ var allowCrossDomain = function(req, res, next) {
 app.use(allowCrossDomain);
 app.use(methodOverride());
 
-// Serve static files
-app.use(express.static(__dirname + '/../client/'));//serving all static files to our client folder
-app.use('/node', express.static(__dirname + '/../node_modules/'));
-app.use('/bower', express.static(__dirname + '/../bower_components/'));
-
-// Route handling
-app.post('/api', jsonParser, restController.getRestaurants);
-app.put('/api/update', jsonParser, restController.updateWait);
+require('./routes/routes.js')(app, express);
 
 module.exports = app;
