@@ -4,7 +4,7 @@ angular.module('app.services', [])
   var getData = function(userLoc, callback) {
     $http({
       method: 'POST',
-      url: 'http://localhost:8080/api',
+      url: 'http://localhost:8080/api/rest/search',
       data: userLoc
     }).then(function success(data) {
         var collection = data.data.map(function(restaurant) {
@@ -60,7 +60,7 @@ angular.module('app.services', [])
   function updateWait(objToSend) {
     $http({
       method: 'PUT',
-      url: 'http://localhost:8080/api/update',
+      url: 'http://localhost:8080/api/rest/update',
       data: objToSend
     }).then(function successCallback(response) {
       // console.log('PUT: Sent ' + JSON.stringify(objToSend) + ' successfully');

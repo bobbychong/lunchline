@@ -12,8 +12,8 @@ if (!process.env.GOOGLEPLACESKEY) {
 exports.getRestaurants = function(req, res) {
   console.log('Receiving a request!', req.body);
 
-  var lat = req.body.userLocation.lat;
-  var lng = req.body.userLocation.long;
+  var lat = req.body.lat;
+  var lng = req.body.long;
   var results = [];
   var api_key = process.env.GOOGLEPLACESKEY || config.placesKey;
   var locations = new PlaceSearch(api_key);
@@ -22,9 +22,10 @@ exports.getRestaurants = function(req, res) {
   var url = 'https://maps.googleapis.com/maps/api/place/textsearch/json?type=food&l&query=' + query + '&key=' + api_key;
 
   // Make google places API call with lat and long
-  if(!req.body.location) {
+  if (!req.body.location) {
+
     locations.search({
-      keyword: req.body.keyword,
+      keyword: req.body.keyword || 'food',
       location: [lat, lng],
       radius: 5000
     }, function(err, response) {
@@ -82,8 +83,7 @@ exports.getRestaurants = function(req, res) {
         });
       });
     });
-  }
-  else {
+  } else {
     https.get(url, function(response) {
       var data;
       response.on('data', function(chunk) {
