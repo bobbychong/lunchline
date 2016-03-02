@@ -8,63 +8,76 @@ angular.module('lunchline.routes', [])
   // Each state's controller can be found in controllers.js
   $stateProvider
   .state('menu.home', {
-    url: '/page1',
+    url: '/home',
     views: {
-      'side-menu21': {
+      'side-menu': {
         templateUrl: 'templates/home.html',
         controller: 'homeController'
       }
     }
   })
   .state('menu.list', {
-    url: '/page2',
+    url: '/list',
     views: {
-      'side-menu21': {
+      'side-menu': {
         templateUrl: 'templates/list.html',
         controller: 'listController'
       }
     }
   })
   .state('menu.restaurant', {
-    url: '/page3',
+    url: '/restaurant',
     views: {
-      'side-menu21': {
+      'side-menu': {
         templateUrl: 'templates/restaurant.html',
         controller: 'restaurantController'
       }
     }
   })
   .state('menu', {
-    url: '/side-menu21',
+    url: '/side-menu',
     templateUrl: 'templates/menu.html',
-    abstract:true
+    abstract:true,
+    controller: 'homeController',
+    resolve: {
+      // controller will not be loaded until $waitForAuth resolves
+      // Auth refers to our $firebaseAuth wrapper in the example above
+      "currentAuth": ["Auth", function(Auth) {
+        // $waitForAuth returns a promise so the resolve waits for it to complete
+        return Auth.auth.$requireAuth();
+      }]
+    }
   })
   .state('favorites', {
-    url: '/page4',
-    templateUrl: 'templates/favorites.html',
-    controller: 'favoritesController'
+    url: '/favorites',
+    views: {
+      'side-menu': {
+        templateUrl: 'templates/favorites.html',
+        controller: 'favoritesController'
+      }
+    }
   })
   .state('menu.profile', {
-    url: '/page5',
+    url: '/profile',
     views: {
-      'side-menu21': {
+      'side-menu': {
         templateUrl: 'templates/profile.html',
         controller: 'profileController'
       }
     }
   })
   .state('login', {
-    url: '/page6',
+    url: '/login',
     templateUrl: 'templates/login.html',
     controller: 'authController'
   })
   .state('signup', {
-    url: '/page7',
+    url: '/signup',
     templateUrl: 'templates/signup.html',
     controller: 'authController'
   })
 
-$urlRouterProvider.otherwise('/side-menu21/page1')
+$urlRouterProvider.otherwise('/side-menu/home')
 
 })
 /*.config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
