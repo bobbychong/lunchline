@@ -6,15 +6,16 @@ angular.module('lunchline.list', [])
    $scope.short_name = 'address, city, zip';
    $scope.foodAndLocation = {};
 
+   $scope.query = {};
 
    $scope.$watch('foodType', function(newValue, oldValue) {
-     $scope.foodType = newValue;
-     console.log('this is the food type being inputed ', $scope.foodType);
+     $scope.query.foodType = newValue;
+     console.log('this is the food type being inputed ', $scope.query.foodType);
    });
 
    $scope.$watch('location', function(newValue, oldValue) {
-     $scope.location = newValue;
-     console.log('this it the location being inputed ', $scope.location)
+     $scope.query.location = newValue;
+     console.log('this it the location being inputed ', $scope.query.location)
    });
 
    // Function called when a wait time is reported.  Saves to session storage for refresh/back cases
@@ -35,18 +36,18 @@ angular.module('lunchline.list', [])
    // Saves results returned to scope object
    $scope.restInfo = function() {
       navigator.geolocation.getCurrentPosition(function(position) {
-         $scope.userLocation = {
+         $scope.query.userLocation = {
             lat: position.coords.latitude,
             long: position.coords.longitude
          };
-         Data.getData($scope.userLocation, function(fetchedData) {
+         Data.getData($scope.query, function(fetchedData) {
             // Make a distance property for each restaurant
             for (var i = 0; i < fetchedData.length; i++) {
                var destination = {
                   lat: fetchedData[i].restaurant.geometry.location.lat,
                   long: fetchedData[i].restaurant.geometry.location.lng
                };
-               fetchedData[i].restaurant.dist = distance.calc($scope.userLocation, destination);
+               fetchedData[i].restaurant.dist = distance.calc($scope.query.userLocation, destination);
             }
             // Save fetched data to scope object
             $scope.data = fetchedData;
