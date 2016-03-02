@@ -1,4 +1,4 @@
-angular.module('app.services', [])
+angular.module('lunchline.services', [])
 
 .factory('Data', function($http) {
   var getData = function(userLoc, callback) {
@@ -77,4 +77,4 @@ angular.module('app.services', [])
 
 .service('BlankService', [function(){
 
-}]);
+}])
