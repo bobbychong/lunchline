@@ -11,7 +11,6 @@ if (!process.env.GOOGLEPLACESKEY) {
 exports.getRestaurants = function(req, res) {
   console.log('Receiving a request!', req.body);
 
-  var url;
   var lat = req.body.userLocation.lat;
   var lng = req.body.userLocation.long;
   var results = [];
@@ -37,7 +36,6 @@ exports.getRestaurants = function(req, res) {
       var jstring = JSON.stringify(data);
       var temp = JSON.parse(jstring.slice(0,1) + jstring.slice(10));
       var place = JSON.parse(temp);
-
 
       _.each(place.results, function(item) {
         Restaurant.findOne({
