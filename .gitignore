@@ -3,3 +3,5 @@ bower_components
 npm-debug.log
 server/config.js
 deploy.sh
+.DS_Store
+lunchline/www/lib

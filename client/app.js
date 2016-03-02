@@ -17,4 +17,4 @@ var myApp = angular.module('lunchline', ['ui.router', 'mobile-angular-ui', 'ngMa
 // Remove spinner in top left corner from angular loading bar
 .config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
     cfpLoadingBarProvider.includeSpinner = false;
-  }]);
+}]);

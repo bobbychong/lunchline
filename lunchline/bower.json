@@ -1,0 +1,12 @@
+{
+  "name": "lunchline",
+  "private": "true",
+  "devDependencies": {
+    "ionic": "driftyco/ionic-bower#1.2.4"
+  },
+  "dependencies": {
+    "ngmap": "^1.16.7",
+    "ion-sticky": "^1.0.4",
+    "sweetalert2": "^0.3.4"
+  }
+}
