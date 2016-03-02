@@ -16,7 +16,8 @@ var restaurantSchema = new mongoose.Schema({
   price_level: Number,
   rating: Number,
   types : String,
-  vicinity: String
+  vicinity: String,
+  distance: Number
 })
 
 module.exports = mongoose.model('Restaurant', restaurantSchema)

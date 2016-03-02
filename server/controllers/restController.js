@@ -1,6 +1,7 @@
 var Restaurant = require('../restaurant/restModel.js');
 var _ = require('underscore');
 var https = require('https');
+var helper = require('../util/helpers.js');
 
 if (!process.env.GOOGLEPLACESKEY) {
   var config = require('../config.js');
@@ -11,7 +12,6 @@ if (!process.env.GOOGLEPLACESKEY) {
 exports.getRestaurants = function(req, res) {
   console.log('Receiving a request!', req.body);
 
-  var url;
   var lat = req.body.userLocation.lat;
   var lng = req.body.userLocation.long;
   var results = [];
@@ -19,12 +19,13 @@ exports.getRestaurants = function(req, res) {
   var api_key = process.env.GOOGLEPLACESKEY || config.placesKey;
 
   var query = keyword + ' in ' + req.body.location;
+  var url = 'https://maps.googleapis.com/maps/api/place/textsearch/json?type=food&key=' + api_key;
 
   if (req.body.location) {
-    url = 'https://maps.googleapis.com/maps/api/place/textsearch/json?type=food&l&query=' + query + '&key=' + api_key;
+    url = url + '&query=' + query;
   }
   else {
-    url = 'https://maps.googleapis.com/maps/api/place/textsearch/json?location=' + lat + ',' + lng + '&radius=5000&type=food&l&query=' + keyword + '&key=' + api_key;
+    url = url + '&location=' + lat + ',' + lng + '&radius=5000&l&query=' + keyword;
   }
 
   https.get(url, function(response) {
@@ -38,7 +39,7 @@ exports.getRestaurants = function(req, res) {
       var temp = JSON.parse(jstring.slice(0,1) + jstring.slice(10));
       var place = JSON.parse(temp);
 
-
+      console.log(place.results.length);
       _.each(place.results, function(item) {
         Restaurant.findOne({
           id: item.id
@@ -58,8 +59,10 @@ exports.getRestaurants = function(req, res) {
               price_level: item.price_level,
               rating: item.rating,
               types: item.types[0],
-              vicinity: item.vicinity
+              vicinity: item.vicinity,
+              distance: 0
             });
+            restaurant.distance = helper.distance(lat, lng, obj.geometry.location.lat, obj.geometry.location.lng);
             restaurant.save(function(err) {
               if (err) {
                 console.log("not saved");
@@ -73,7 +76,9 @@ exports.getRestaurants = function(req, res) {
               }
             });
           } else {
+            obj.distance = helper.distance(lat, lng, obj.geometry.location.lat, obj.geometry.location.lng);
             results.push(obj);
+
             // ** TODO **: Rewrite condition that JSON is returned so it doesn't fail with too few results
             console.log('RESULTS LENGTH : ', results.length);
 
