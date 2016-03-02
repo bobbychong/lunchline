@@ -76,27 +76,32 @@ exports.getRestaurants = function(req, res) {
   });
 };
 
+
+
 // Function that updates the wait time/color in the database
 exports.updateWait = function(req, res) {
-  // console.log("request obj: ", req.body);
-  var query = {
-    place_id: req.body.place_id
-  };
-
-  // console.log("+++ query", query);
-  var update = {
-    wait: req.body.wait
-  };
-
-  // Upsert updates instead of adding a new entry
-  var options = {
-    upsert: true
-  };
-
-  Restaurant.findOneAndUpdate(query, update, options, function(err, restaurant) {
+  var updatedArray;
+  var date;
+  Restaurant.findOne({place_id: req.body.place_id}, 'time', function(err, timeArray) {
     if (err) {
       throw err;
     }
-    res.json(restaurant);
+    updatedArray = timeArray.time.slice();
+    date = new Date().getTime() / 1000;
+    updatedArray.push({date: date, wait: req.body.wait});
+    // console.log(timeArray);
+    console.log(updatedArray);
+    Restaurant.findOneAndUpdate({place_id: req.body.place_id}, {time: updatedArray}, {upsert: true}, function(err, restaurant) {
+      if (err) {
+        throw err;
+      }
+      res.json(restaurant);
+    });
   });
 };
+  // console.log("+++ query", query);
+  // Upsert updates instead of adding a new entry
+  // update.time = timeArray.push({
+  //   updated_at: "5:00pm",
+
+  // console.log("request obj: ", req.body);
