@@ -1,4 +1,4 @@
-angular.module('app.routes', [])
+angular.module('lunchline.routes', [])
 
 .config(function($stateProvider, $urlRouterProvider) {
 
@@ -12,7 +12,7 @@ angular.module('app.routes', [])
     views: {
       'side-menu21': {
         templateUrl: 'templates/home.html',
-        controller: 'homeCtrl'
+        controller: 'homeController'
       }
     }
   })
@@ -21,7 +21,7 @@ angular.module('app.routes', [])
     views: {
       'side-menu21': {
         templateUrl: 'templates/list.html',
-        controller: 'listCtrl'
+        controller: 'listController'
       }
     }
   })
@@ -30,7 +30,7 @@ angular.module('app.routes', [])
     views: {
       'side-menu21': {
         templateUrl: 'templates/restaurant.html',
-        controller: 'restCtrl'
+        controller: 'restaurantController'
       }
     }
   })
@@ -42,26 +42,26 @@ angular.module('app.routes', [])
   .state('favorites', {
     url: '/page4',
     templateUrl: 'templates/favorites.html',
-    controller: 'favoritesCtrl'
+    controller: 'favoritesController'
   })
   .state('menu.profile', {
     url: '/page5',
     views: {
       'side-menu21': {
         templateUrl: 'templates/profile.html',
-        controller: 'profileCtrl'
+        controller: 'profileController'
       }
     }
   })
   .state('login', {
     url: '/page6',
     templateUrl: 'templates/login.html',
-    controller: 'loginCtrl'
+    controller: 'authController'
   })
   .state('signup', {
     url: '/page7',
     templateUrl: 'templates/signup.html',
-    controller: 'signupCtrl'
+    controller: 'authController'
   })
 
 $urlRouterProvider.otherwise('/side-menu21/page1')

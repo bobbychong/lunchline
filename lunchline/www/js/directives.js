@@ -1,6 +1,5 @@
-angular.module('app.directives', [])
+angular.module('lunchline.directives', [])
 
 .directive('blankDirective', [function(){
 
 }]);
-
