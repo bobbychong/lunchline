@@ -13,6 +13,7 @@
     "geolocate": "0.0.1",
     "google-locations": "^0.2.0",
     "googleplaces": "^0.6.0",
+    "method-override": "^2.3.5",
     "mongoose": "^4.4.4",
     "ngmap": "^1.17.0",
     "q": "^1.4.1",

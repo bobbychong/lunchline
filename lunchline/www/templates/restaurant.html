@@ -1,0 +1,39 @@
+<ion-view title="{{ restaurant.name }}">
+    <ion-content overflow-scroll="true" padding="true" class="has-header">
+      <div class="mapWrap" data-tap-disabled="true">
+        <map center="{{ restaurant.lat }},{{ restaurant.lng }}" zoom="15">
+          <marker position = "{{ restaurant.lat }}, {{ restaurant.lng}}"></marker>
+        </map>
+      </div>
+
+      <div class="row oliveGreen lightText">
+        <div class="col-sm-12 restaurantInfoWrapper">
+          <h1 id="restName">{{ restaurant.name }}</h1>
+          <!-- need to change starString to be where geolocation is -->
+          <h3 class="restInfo">{{ restaurant.rating }} - {{ starString }} - Price: {{ restaurant.price }}</h3>
+          <h3>{{ restaurant.category }}</h3>
+        </div>
+      </div>
+
+      <ion-list>
+        <ion-item target="_blank" ng-href="https://www.google.com/maps/dir/604+Arizona+Ave+Santa+Monica/{{restaurant.address}}">
+          <h2 class="restDetails">{{ restaurant.address }}</h2>
+        </ion-item>
+        <ion-item>
+          <h2 class="restDetails">Estimated Wait Time is {{ waitString }}</h2>
+        </ion-item>
+        <ion-item>
+          <div id="currWait"></div>
+        </ion-item>
+      </ion-list>
+
+      <h1 class="center-block center-text checkIn">Check In</h2>
+
+      <span class="button-bar">
+        <button class="button button-stable button-block waitTimeButtons" id="shortWait" ng-click="updateWait('0_green')" ui-turn-on='button1' ui-state='button1' ui-class="{'active': button1}" ui-exclusion-group='myButtons'><h1>< 10 Mins</h1></div>
+        <button class="button button-stable button-block waitTimeButtons" id="medWait" ng-click="updateWait('1_yellow')" ui-turn-on='button2' ui-state='button2' ui-class="{'active': button2}" ui-exclusion-group='myButtons'><h1>~ 20 Mins</h1></div>
+        <button class="button button-stable button-block waitTimeButtons" id="longWait" ng-click="updateWait('2_red')" ui-turn-on='button3' ui-state='button3' ui-class="{'active': button3}" ui-exclusion-group='myButtons'><h1>> 30 Mins</h1></div>
+      </span>
+
+    </ion-content>
+</ion-view>

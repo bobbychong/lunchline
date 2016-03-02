@@ -3,6 +3,58 @@
   <!-- Loading Animation -->
   <img src="../../assets/balls.gif" ng-show="contentLoading" class="loading">
 
+  <div ui-content-for="title">
+  <span>Scroll</span>
+</div>
+<!-- 
+<div class="scrollable" ui-state="searchBar">
+  <input
+    ng-if="Ui.active('searchBar')"
+    type="search"
+    class="form-control scrollable-header"
+    placeholder="Search.." />
+
+
+  <a class="btn btn-block btn-lg btn-primary scrollable-footer" ui-toggle='searchBar'>
+    <i class="fa fa-search"></i>
+    <span ui-hide="searchBar">Show</span>
+    <span ui-show="searchBar">Hide</span>
+    Search Bar
+  </a>
+</div> -->
+
+  <!-- <div class="search">
+    <div class="scrollable" ui-toggle='searchLocationBar' ui-state="searchFoodBar">
+      <input
+        type="search"
+        class="form-control scrollable-header"
+        placeholder="tacos, asian, cheap....." ng-model="foodType" />
+    </div>
+    <div class="scrollable" ui-state="searchLocationBar">
+      <input
+        ng-if="Ui.active('searchLocationBar')"
+        type="search"
+        class="form-control scrollable-header"
+        placeholder={{short_name}} ng-model="location" />
+    </div>
+  </div> -->
+
+  <!-- <div style="text-align: center">
+    <span>
+      <input
+        type="search"
+        placeholder="tacos, asian, cheap..." />
+      </span>
+    <span>
+      <input
+        type="search"
+        placeholder="address, city, zip" />
+    </span>
+    <button class="btn btn-primary">
+      Search
+    </button>
+  </div> -->
+
   <div class="list-group">
     <!-- Header with list lables and sort options -->
     <div id="listViewHeader" class="list-group-item">
