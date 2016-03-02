@@ -12,6 +12,7 @@ var restaurantSchema = new mongoose.Schema({
     photo_reference: String,
     width: Number
   }],
+  time: Array,
   place_id: String,
   price_level: Number,
   rating: Number,
