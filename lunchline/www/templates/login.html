@@ -1,19 +1,23 @@
 <ion-view title="Login">
     <ion-content overflow-scroll="true" padding="true" class="has-header">
-        <form class="list">
+        <form ng-submit="login()" class="list">
             <ion-list>
                 <label class="item item-input">
-                    <span class="input-label">Username</span>
-                    <input type="text" placeholder="">
+                    <span class="input-label">Email</span>
+                    <input ng-model="user.email" type="email" placeholder="">
                 </label>
                 <label class="item item-input">
                     <span class="input-label">Password</span>
-                    <input type="password" placeholder="">
+                    <input ng-model="user.password" type="password" placeholder="">
                 </label>
             </ion-list>
             <div class="spacer" style="height: 40px;"></div>
             <a ui-sref="restaurant" class="button button-stable button-block ">Log in</a>
             <a href="#" onclick="window.open('/signup', '_system', 'location=yes'); return false;" class="button button-positive button-clear button-block ">Or create an account</a>
+            <button>Login</button>
         </form>
+        <button ng-click="auth()">Auth?</button>
+        <button ng-click="fbLogin()">FB</button>
+        <button ng-click="logout()">Logout</button>
     </ion-content>
 </ion-view>
