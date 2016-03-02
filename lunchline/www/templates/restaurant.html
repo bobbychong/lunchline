@@ -16,7 +16,8 @@
       </div>
 
       <ion-list>
-        <ion-item target="_blank" ng-href="https://www.google.com/maps/dir/604+Arizona+Ave+Santa+Monica/{{restaurant.address}}">
+        <!-- https://www.google.com/maps/dir/604+Arizona+Ave+Santa+Monica/{{restaurant.address}} -->
+        <ion-item target="_blank" ng-href="https://www.google.com/maps/dir/{{userLocation.lat + ',' + userLocation.long}}/{{restaurant.address}}">
           <h2 class="restDetails">{{ restaurant.address }}</h2>
         </ion-item>
         <ion-item>
