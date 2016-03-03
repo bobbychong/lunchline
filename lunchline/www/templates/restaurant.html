@@ -6,18 +6,22 @@
         </map>
       </div>
 
-      <div class="row oliveGreen lightText">
-        <div class="col-sm-12 restaurantInfoWrapper">
+      <ion-list>
+        <!-- https://www.google.com/maps/dir/604+Arizona+Ave+Santa+Monica/{{restaurant.address}} -->
+        <ion-item>
           <h1 id="restName">{{ restaurant.name }}</h1>
-          <!-- need to change starString to be where geolocation is -->
-          <h3 class="restInfo">{{ restaurant.rating }} - {{ starString }} - Price: {{ restaurant.price }}</h3>
-          <h3>{{ restaurant.category }}</h3>
-        </div>
-      </div>
+        </ion-item>
+        <ion-item>
+          <h3 class="restInfo"> {{ starString }}</h3>
+        </ion-item>
+        <ion-item>
+          <h3 class="restInfo">{{ restaurant.price }} - {{ restaurant.category }}</h3>
+        </ion-item>
+      </ion-list>
 
       <ion-list>
         <!-- https://www.google.com/maps/dir/604+Arizona+Ave+Santa+Monica/{{restaurant.address}} -->
-        <ion-item target="_blank" ng-href="https://www.google.com/maps/dir/{{userLocation.lat + ',' + userLocation.long}}/{{restaurant.address}}">
+        <ion-item class="item-text-wrap" ng-if="restaurant.address" target="_blank" ng-href="https://www.google.com/maps/dir/{{userLocation.lat + ',' + userLocation.long}}/{{restaurant.address}}">
           <h2 class="restDetails">{{ restaurant.address }}</h2>
         </ion-item>
         <ion-item>
@@ -31,9 +35,9 @@
       <h1 class="center-block center-text checkIn">Check In</h2>
 
       <span class="button-bar">
-        <button class="button button-stable button-block waitTimeButtons" id="shortWait" ng-click="updateWait('0_green')" ui-turn-on='button1' ui-state='button1' ui-class="{'active': button1}" ui-exclusion-group='myButtons'><h1>< 10 Mins</h1></div>
-        <button class="button button-stable button-block waitTimeButtons" id="medWait" ng-click="updateWait('1_yellow')" ui-turn-on='button2' ui-state='button2' ui-class="{'active': button2}" ui-exclusion-group='myButtons'><h1>~ 20 Mins</h1></div>
-        <button class="button button-stable button-block waitTimeButtons" id="longWait" ng-click="updateWait('2_red')" ui-turn-on='button3' ui-state='button3' ui-class="{'active': button3}" ui-exclusion-group='myButtons'><h1>> 30 Mins</h1></div>
+        <button class="button button-balanced button-block waitTimeButtons" id="shortWait" ng-click="updateWait('0_green')"><div class="checkInButtons">< 10 Mins</div></div>
+        <button class="button button-energized button-block waitTimeButtons" id="medWait" ng-click="updateWait('1_yellow')"><div class="checkInButtons">~ 20 Mins</div></div>
+        <button class="button button-assertive button-block waitTimeButtons" id="longWait" ng-click="updateWait('2_red')"><div class="checkInButtons">> 30 Mins</div></div>
       </span>
 
     </ion-content>
