@@ -42,6 +42,7 @@ angular.module('lunchline.list', [])
              /*fetchedData[i].restaurant.dist = distance.calc($scope.userLocation, destination);*/
           }
           // Save fetched data to scope object
+          $scope.searchCalled = true;
           $scope.data = fetchedData;
           console.log(fetchedData);
           // Remove loading gif animation
@@ -64,6 +65,7 @@ angular.module('lunchline.list', [])
             /*fetchedData[i].restaurant.dist = distance.calc($scope.userLocation, destination);*/
          }
          // Save fetched data to scope object
+         $scope.searchCalled = true;
          $scope.data = fetchedData;
          console.log(fetchedData);
 
@@ -104,4 +106,7 @@ angular.module('lunchline.list', [])
        $scope.$root.locationBarShow = false;
      }
    }
+
+   // show header filter when search is called
+   $scope.searchCalled = false;
 })
