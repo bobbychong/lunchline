@@ -34,12 +34,14 @@ angular.module('lunchline.auth', [])
   }
 
   $scope.signup = function(){
-    ref.createUser({email: $scope.email, password: $scope.password}, function(error, user){
+    ref.createUser({email: $scope.user.email, password: $scope.user.password}, function(error, user){
       if (error === null) {
         user.favorites = [];
         user.firstname = $scope.user.firstname;
         user.lastname = $scope.user.lastname;
+        user.image_url = $scope.user.image_url;
         User.sendUser(user);
+        console.log(user);
         $state.go('menu.home');
       } else {
         console.log("Error creating user:", error);
