@@ -1,7 +1,7 @@
+var helpers = require('../util/helpers.js');
 var Restaurant = require('../restaurant/restModel.js');
 var _ = require('underscore');
 var https = require('https');
-var helper = require('../util/helpers.js');
 
 if (!process.env.GOOGLEPLACESKEY) {
   var config = require('../config.js');
@@ -12,13 +12,16 @@ if (!process.env.GOOGLEPLACESKEY) {
 exports.getRestaurants = function(req, res) {
   console.log('Receiving a request!', req.body);
 
+  var lat;
+  var lng;
+
   if (req.body.userLocation.lat) {
-    var lat = req.body.userLocation.lat;
-    var lng = req.body.userLocation.long;
+    lat = req.body.userLocation.lat;
+    lng = req.body.userLocation.long;
   }
 
-  /*var lat = req.body.userLocation.lat;
-  var lng = req.body.userLocation.long;*/
+  // var lat = req.body.userLocation.lat;
+  // var lng = req.body.userLocation.long;
   var results = [];
   var keyword = req.body.foodType || 'food';
   var api_key = process.env.GOOGLEPLACESKEY || config.placesKey;
@@ -44,11 +47,11 @@ exports.getRestaurants = function(req, res) {
       var temp = JSON.parse(jstring.slice(0,1) + jstring.slice(10));
       var place = JSON.parse(temp);
 
-      console.log(place.results.length);
       _.each(place.results, function(item) {
         Restaurant.findOne({
           id: item.id
         }, function(err, obj) {
+          console.log(obj);
           if (obj === null) {
             var restaurant = new Restaurant({
               wait: "3_grey",
@@ -67,9 +70,7 @@ exports.getRestaurants = function(req, res) {
               vicinity: item.formatted_address,
               distance: 0
             });
-            if (lat || lng) {
-              restaurant.distance = helper.distance(lat, lng, restaurant.geometry.location.lat, restaurant.geometry.location.lng);
-            }
+            restaurant.distance = helpers.distance(lat, lng, restaurant.geometry.location.lat, restaurant.geometry.location.lng);
             restaurant.save(function(err) {
               if (err) {
                 console.log("not saved");
@@ -83,15 +84,18 @@ exports.getRestaurants = function(req, res) {
               }
             });
           } else {
-            obj.distance = helper.distance(lat, lng, obj.geometry.location.lat, obj.geometry.location.lng);
-            results.push(obj);
+            console.log("objjjjjj", obj);
+            helpers.avgTime(obj, function(color){
+              obj.distance = helpers.distance(lat, lng, obj.geometry.location.lat, obj.geometry.location.lng);
+              obj.wait = color;
+              results.push(obj);
+              // ** TODO **: Rewrite condition that JSON is returned so it doesn't fail with too few results
+              console.log('RESULTS LENGTH : ', results.length);
 
-            // ** TODO **: Rewrite condition that JSON is returned so it doesn't fail with too few results
-            console.log('RESULTS LENGTH : ', results.length);
-
-            if (results.length === 18) {
-              res.json(results);
-            }
+              if (results.length === 18) {
+                res.json(results);
+              }
+            });
           }
         });
       });
@@ -110,7 +114,6 @@ exports.updateWait = function(req, res) {
     updatedArray = timeArray.time.slice();
     date = new Date().getTime() / 1000;
     updatedArray.push({date: date, wait: req.body.wait});
-    // console.log(timeArray);
     console.log(updatedArray);
     Restaurant.findOneAndUpdate({place_id: req.body.place_id}, {time: updatedArray}, {upsert: true}, function(err, restaurant) {
       if (err) {
