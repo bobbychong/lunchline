@@ -1,5 +1,5 @@
 var helpers = require('../util/helpers.js');
-var Restaurant = require('../restaurant/restModel.js');
+var Restaurant = require('../models/restModel.js');
 var _ = require('underscore');
 var https = require('https');
 
