@@ -21,7 +21,7 @@
 
       <ion-list>
         <!-- https://www.google.com/maps/dir/604+Arizona+Ave+Santa+Monica/{{restaurant.address}} -->
-        <ion-item ng-if="restaurant.address" target="_blank" ng-href="https://www.google.com/maps/dir/{{userLocation.lat + ',' + userLocation.long}}/{{restaurant.address}}">
+        <ion-item class="item-text-wrap" ng-if="restaurant.address" target="_blank" ng-href="https://www.google.com/maps/dir/{{userLocation.lat + ',' + userLocation.long}}/{{restaurant.address}}">
           <h2 class="restDetails">{{ restaurant.address }}</h2>
         </ion-item>
         <ion-item>
@@ -35,9 +35,9 @@
       <h1 class="center-block center-text checkIn">Check In</h2>
 
       <span class="button-bar">
-        <button class="button button-stable button-block waitTimeButtons" id="shortWait" ng-click="updateWait('0_green')"><div class="checkInButtons">< 10 Mins</div></div>
-        <button class="button button-stable button-block waitTimeButtons" id="medWait" ng-click="updateWait('1_yellow')"><div class="checkInButtons">~ 20 Mins</div></div>
-        <button class="button button-stable button-block waitTimeButtons" id="longWait" ng-click="updateWait('2_red')"><div class="checkInButtons">> 30 Mins</div></div>
+        <button class="button button-balanced button-block waitTimeButtons" id="shortWait" ng-click="updateWait('0_green')"><div class="checkInButtons">< 10 Mins</div></div>
+        <button class="button button-energized button-block waitTimeButtons" id="medWait" ng-click="updateWait('1_yellow')"><div class="checkInButtons">~ 20 Mins</div></div>
+        <button class="button button-assertive button-block waitTimeButtons" id="longWait" ng-click="updateWait('2_red')"><div class="checkInButtons">> 30 Mins</div></div>
       </span>
 
     </ion-content>

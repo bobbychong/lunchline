@@ -90,7 +90,7 @@ a.list-group-item {
 
 #waitTitle {
   position: absolute;
-  right: 5%;
+  right: 3%;
 }
 
 #restViewMap {
@@ -139,6 +139,9 @@ a.list-group-item {
 
 .restDetails {
   font-size: .8em;
+  overflow: inherit ;
+  text-overflow: inherit ;
+  white-space: wrap ;
 }
 
 .oliveGreen {
@@ -161,6 +164,7 @@ a.list-group-item {
 
 .waitTimeButtons {
   height: 150px;
+  margin: 0 1%;
 }
 
 .green, #shortWait {
@@ -195,20 +199,20 @@ a.list-group-item {
 
 .waitColorDot {
   position: absolute;
-  height: 2.5em;
+  height: 1.5em;
   right: 6%;
   top: 0;
   bottom: 0;
-  margin: auto 20px;
+  margin: auto 2%;
 }
 
 .rightChevron {
   position: absolute;
-  height: 4em;
+  height: 1.5em;
   right: 0;
   top: 0;
   bottom: 0;
-  margin: auto 20px;
+  margin: auto 3%;
 }
 
 .loading {
@@ -282,7 +286,8 @@ map {
 }
 
 .checkInButtons {
-  font-size: 1.4em;
+  font-size: 1.3em;
   font-weight: bold;
+  text-align: center;
   color: black;
 }
