@@ -19,8 +19,8 @@
             </label>
         </form ng-click="restLocationInfo()">
           <ion-list>
-            <ion-item class="item-divider list-inline" ng-if="searchCalled()">
-              <li class="listHeading" id="distanceTitle" ng-if="restaurant.restaurant.distance !== 0 && restaurant.restaurant.distance" ng-click="order('restaurant.distance')">Dist</li>
+            <ion-item class="item-divider list-inline" ng-if="searchCalled === true">
+              <li class="listHeading" id="distanceTitle" ng-if="data[0].restaurant.distance > 0 && data[0].restaurant.distance" ng-click="order('restaurant.distance')">Dist</li>
               <li class="listHeading" id="nameTitle" ng-click="order('restaurant.name')"> Name</li>
               <li class="listHeading pull-right" id="waitTitle" ng-click="order('restaurant.wait')">Wait</li>
             </ion-item>
