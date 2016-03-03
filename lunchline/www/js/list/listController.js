@@ -1,6 +1,6 @@
 angular.module('lunchline.list', [])
 
-.controller('listController', function(distance, Data, $scope, Geolocation) {
+.controller('listController', function(distance, Data, $scope, Geolocation, $ionicLoading) {
    $scope.data = [];
    $scope.userLocation = {};
    $scope.short_name = 'address, city, zip';
@@ -33,6 +33,7 @@ angular.module('lunchline.list', [])
    };
 
    $scope.$root.restLocationInfo = function() {
+     $scope.show();
      if ($scope.userLocation && $scope.search.location === null) {
        $scope.foodAndLocation.foodType = $scope.search.foodType;
        $scope.foodAndLocation.userLocation = $scope.userLocation;
@@ -50,7 +51,7 @@ angular.module('lunchline.list', [])
           $scope.data = fetchedData;
           console.log(fetchedData);
           // Remove loading gif animation
-          $scope.contentLoading = false;
+          $scope.hide();
         });
     } else {
       $scope.foodAndLocation.foodType = $scope.search.foodType;
@@ -74,7 +75,7 @@ angular.module('lunchline.list', [])
          console.log(fetchedData);
 
          // Remove loading gif animation
-         $scope.contentLoading = false;
+         $scope.hide();
        });
 
      }
@@ -83,8 +84,7 @@ angular.module('lunchline.list', [])
    // Sets default order to be ascending
    $scope.reverse = true;
    $scope.order('restaurant.distance');
-   $scope.contentLoading = true;
-   
+
    $scope.locationInfo = function() {
      Geolocation.locationInfo(function(userLocation) {
        $scope.userLocation = userLocation;
@@ -111,4 +111,30 @@ angular.module('lunchline.list', [])
 
    // show header filter when search is called
    $scope.searchCalled = false;
+
+   // loading
+   $scope.show = function() {
+     $ionicLoading.show({
+       // The text to display in the loading indicator
+       content: '<i class=" ion-loading-c"></i> ',
+
+       // The animation to use
+       animation: 'fade-in',
+
+       // Will a dark overlay or backdrop cover the entire view
+       showBackdrop: true,
+
+       // The maximum width of the loading indicator
+       // Text will be wrapped if longer than maxWidth
+       maxWidth: 200,
+
+       // The delay in showing the indicator
+       showDelay: 0
+     });
+   };
+
+   $scope.hide = function(){
+     $ionicLoading.hide();
+   };
+
 })
