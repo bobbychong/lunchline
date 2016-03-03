@@ -201,8 +201,9 @@ angular.module('lunchline.services', [])
 
   var getUser = function(user) {
     return $http({
-      method: 'GET',
-      url: 'http://localhost:8080/api/rest/profile'
+      method: 'POST',
+      url: 'http://localhost:8080/api/rest/profile',
+      data: user
     }).then(function(res) {
       return res.data;
     });
