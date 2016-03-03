@@ -20,6 +20,10 @@ angular.module('lunchline.list', [])
    $scope.transferEvent = function(obj) {
       Data.clickedItem = obj;
       sessionStorage['tempStorage'] = JSON.stringify(obj);
+      // hides search button when a specific restaurant is clicked
+      if ($scope.locationBarShow === true) {
+        $scope.showLocationBar();
+      }
    }
 
    // Order variable used for the sorting order
