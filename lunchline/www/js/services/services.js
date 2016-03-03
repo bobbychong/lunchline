@@ -19,7 +19,7 @@ angular.module('lunchline.services', [])
   var logout = function(){
     ref.unauth();
   }
-  
+
   var fbLogin = function(){
     ref.authWithOAuthPopup("facebook", function(error, authData) {
       if (error) {
@@ -38,6 +38,7 @@ angular.module('lunchline.services', [])
   }
 })
 .factory('Data', function($http) {
+
   var getData = function(userLoc, callback) {
     $http({
       method: 'POST',
@@ -195,4 +196,30 @@ angular.module('lunchline.services', [])
      userLocation: userLocation
    }
 
+})
+.factory('User', function($http) {
+
+  var getUser = function(user) {
+    return $http({
+      method: 'GET',
+      url: 'http://localhost:8080/api/rest/profile'
+    }).then(function(res) {
+      return res.data;
+    });
+  };
+
+  var sendUser = function(user) {
+    return $http({
+      method: 'POST',
+      url: 'http://localhost:8080/api/rest/user',
+      data: user
+    }).then(function(res) {
+      return res.data;
+    });
+  };
+
+  return {
+    getUser: getUser,
+    sendUser: sendUser
+  };
 })

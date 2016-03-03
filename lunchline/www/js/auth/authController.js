@@ -1,6 +1,7 @@
 angular.module('lunchline.auth', [])
 
-.controller('authController', function($scope, Auth, $firebaseAuth) {
+
+.controller('authController', function($scope, Auth, User, $firebaseObject, $firebaseAuth, $state) {
   var ref = new Firebase('https://instalunchline.firebaseio.com');
   var authRef = new Firebase("https://instalunchline.firebaseio.com/.info/authenticated");
 
@@ -33,9 +34,15 @@ angular.module('lunchline.auth', [])
   }
 
   $scope.signup = function(){
-    ref.createUser({email: $scope.email, password: $scope.password}, function(error, user){
+    ref.createUser({email: $scope.user.email, password: $scope.user.password}, function(error, user){
       if (error === null) {
-        console.log("User created successfully:", user);
+        user.favorites = [];
+        user.firstname = $scope.user.firstname;
+        user.lastname = $scope.user.lastname;
+        user.image_url = $scope.user.image_url;
+        User.sendUser(user);
+        console.log(user);
+        $state.go('menu.home');
       } else {
         console.log("Error creating user:", error);
       }
