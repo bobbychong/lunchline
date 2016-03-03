@@ -6,8 +6,7 @@ angular.module('lunchline.auth', [])
   var authRef = new Firebase("https://instalunchline.firebaseio.com/.info/authenticated");
 
   $scope.user = {};
-
-
+  
   $scope.login = function(){
     ref.authWithPassword({
       email: $scope.user.email,
@@ -40,6 +39,7 @@ angular.module('lunchline.auth', [])
         user.firstname = $scope.user.firstname;
         user.lastname = $scope.user.lastname;
         user.image_url = $scope.user.image_url;
+        console.log($scope.user);
         User.sendUser(user);
         console.log(user);
         $state.go('menu.home');
