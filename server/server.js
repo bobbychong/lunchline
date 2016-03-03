@@ -2,7 +2,6 @@ var express = require('express');
 var app = express();
 var mongoose = require('mongoose');
 
-var restController = require('./restaurant/restController.js');
 var methodOverride  = require('method-override');
 var jsonParser = require('body-parser').json();
 
