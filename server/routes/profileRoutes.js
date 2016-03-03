@@ -1,0 +1,8 @@
+var profileController = require('../controllers/profileController.js');
+var jsonParser = require('body-parser').json();
+module.exports = function(app) {
+
+  app.post('/profile', jsonParser, profileController.getUser);
+  app.post('/user', jsonParser, profileController.addUser);
+
+};
