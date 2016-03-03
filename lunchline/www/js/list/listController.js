@@ -30,8 +30,8 @@ angular.module('lunchline.list', [])
 
    $scope.$root.restLocationInfo = function() {
      if ($scope.userLocation && $scope.search.location === null) {
-       $scope.foodAndLocation.food = $scope.search.foodType;
-       $scope.foodAndLocation.location = $scope.userLocation;
+       $scope.foodAndLocation.foodType = $scope.search.foodType;
+       $scope.foodAndLocation.userLocation = $scope.userLocation;
        console.log('using geo location ', $scope.foodAndLocation);
        Data.getData($scope.foodAndLocation, function(fetchedData) {
           for (var i = 0; i < fetchedData.length; i++) {
@@ -39,7 +39,7 @@ angular.module('lunchline.list', [])
                 lat: fetchedData[i].restaurant.geometry.location.lat,
                 long: fetchedData[i].restaurant.geometry.location.lng
              };
-             fetchedData[i].restaurant.dist = distance.calc($scope.userLocation, destination);
+             /*fetchedData[i].restaurant.dist = distance.calc($scope.userLocation, destination);*/
           }
           // Save fetched data to scope object
           $scope.data = fetchedData;
@@ -48,8 +48,9 @@ angular.module('lunchline.list', [])
           $scope.contentLoading = false;
         });
     } else {
-      $scope.foodAndLocation.food = $scope.search.foodType;
-      $scope.foodAndLocation.location = $scope.search.location;
+      $scope.foodAndLocation.foodType = $scope.search.foodType;
+      $scope.foodAndLocation.userLocation = $scope.userLocation;
+      $scope.foodAndLocation.location = $scope.search.location
       console.log('not using geo location ', $scope.foodAndLocation);
       Data.getData($scope.foodAndLocation, function(fetchedData) {
          for (var i = 0; i < fetchedData.length; i++) {
@@ -59,8 +60,8 @@ angular.module('lunchline.list', [])
             };
             console.log('this is the destination', destination);
             console.log('this is the $scope.userLocation ', $scope.userLocation);
-            console.log('Let\'s Calculate the distance on the fly! ', distance.calc($scope.userLocation, destination));
-            fetchedData[i].restaurant.dist = distance.calc($scope.userLocation, destination);
+            /*console.log('Let\'s Calculate the distance on the fly! ', distance.calc($scope.userLocation, destination));*/
+            /*fetchedData[i].restaurant.dist = distance.calc($scope.userLocation, destination);*/
          }
          // Save fetched data to scope object
          $scope.data = fetchedData;
