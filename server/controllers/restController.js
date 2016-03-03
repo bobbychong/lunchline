@@ -12,12 +12,9 @@ if (!process.env.GOOGLEPLACESKEY) {
 exports.getRestaurants = function(req, res) {
   console.log('Receiving a request!', req.body);
 
-  var lat;
-  var lng;
-
   if (req.body.userLocation.lat) {
-    lat = req.body.userLocation.lat;
-    lng = req.body.userLocation.long;
+    var lat = req.body.userLocation.lat;
+    var lng = req.body.userLocation.long;
   }
 
   // var lat = req.body.userLocation.lat;
@@ -70,7 +67,9 @@ exports.getRestaurants = function(req, res) {
               vicinity: item.formatted_address,
               distance: 0
             });
-            restaurant.distance = helpers.distance(lat, lng, restaurant.geometry.location.lat, restaurant.geometry.location.lng);
+            if (lat || lng) {
+              restaurant.distance = helpers.distance(lat, lng, restaurant.geometry.location.lat, restaurant.geometry.location.lng);
+            }
             restaurant.save(function(err) {
               if (err) {
                 console.log("not saved");
@@ -86,7 +85,9 @@ exports.getRestaurants = function(req, res) {
           } else {
             console.log("objjjjjj", obj);
             helpers.avgTime(obj, function(color){
-              obj.distance = helpers.distance(lat, lng, obj.geometry.location.lat, obj.geometry.location.lng);
+              if (lat || lng) {
+                obj.distance = helpers.distance(lat, lng, obj.geometry.location.lat, obj.geometry.location.lng);
+              }
               obj.wait = color;
               results.push(obj);
               // ** TODO **: Rewrite condition that JSON is returned so it doesn't fail with too few results
