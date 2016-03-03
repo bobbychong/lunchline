@@ -80,13 +80,11 @@ angular.module('lunchline.list', [])
      }
    }
 
-   // Call main post request
-   /*$scope.restInfo();*/
    // Sets default order to be ascending
    $scope.reverse = true;
-   $scope.order('restaurant.dist');
+   $scope.order('restaurant.distance');
    $scope.contentLoading = true;
-
+   
    $scope.locationInfo = function() {
      Geolocation.locationInfo(function(userLocation) {
        $scope.userLocation = userLocation;
