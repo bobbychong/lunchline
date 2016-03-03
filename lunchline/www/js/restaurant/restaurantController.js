@@ -1,6 +1,6 @@
 angular.module('lunchline.restaurant', [])
 
-.controller('restaurantController', function($scope, Data, Update) {
+.controller('restaurantController', function($scope, Data, Update, Geolocation) {
 
   $scope.restaurant = {
     id: '',
@@ -15,6 +15,16 @@ angular.module('lunchline.restaurant', [])
     waitTime: ''
   };
 
+  $scope.userLocation = {};
+
+  // grab the userlocation from factory
+  $scope.grabUserLocation = function(){
+    $scope.userLocation = Geolocation.userLocation;
+    console.log($scope.userLocation);
+  };
+
+  $scope.grabUserLocation();
+
   // Check if object doesn't exist, use session storage.
   // This way, on refresh or back, it won't have all undefined values
   if (!Data.clickedItem.id) {
@@ -22,6 +32,7 @@ angular.module('lunchline.restaurant', [])
   }
 
   if (Data.clickedItem.id) {
+
     // Get data from clicked item
     var item = Data.clickedItem;
 
@@ -62,6 +73,8 @@ angular.module('lunchline.restaurant', [])
     }
 
     $scope.restaurant.price = dollarSigns;
+
+    console.log($scope.restaurant);
 
     // Change color of main indicator div based on wait time from database
     switch ($scope.restaurant.waitTime) {

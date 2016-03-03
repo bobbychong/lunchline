@@ -12,8 +12,13 @@ if (!process.env.GOOGLEPLACESKEY) {
 exports.getRestaurants = function(req, res) {
   console.log('Receiving a request!', req.body);
 
-  var lat = req.body.userLocation.lat;
-  var lng = req.body.userLocation.long;
+  if (req.body.userLocation.lat) {
+    var lat = req.body.userLocation.lat;
+    var lng = req.body.userLocation.long;
+  }
+
+  /*var lat = req.body.userLocation.lat;
+  var lng = req.body.userLocation.long;*/
   var results = [];
   var keyword = req.body.foodType || 'food';
   var api_key = process.env.GOOGLEPLACESKEY || config.placesKey;
@@ -59,10 +64,12 @@ exports.getRestaurants = function(req, res) {
               price_level: item.price_level,
               rating: item.rating,
               types: item.types[0],
-              vicinity: item.vicinity,
+              vicinity: item.formatted_address,
               distance: 0
             });
-            restaurant.distance = helper.distance(lat, lng, obj.geometry.location.lat, obj.geometry.location.lng);
+            if (lat || lng) {
+              restaurant.distance = helper.distance(lat, lng, restaurant.geometry.location.lat, restaurant.geometry.location.lng);
+            }
             restaurant.save(function(err) {
               if (err) {
                 console.log("not saved");

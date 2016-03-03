@@ -1,23 +1,31 @@
 <ion-view title="Restaurants list">
+  <!-- <ion-nav-buttons side="right" ng-controller="listController">
+    <a data-tap-disabled="true" class="button button-icon icon positive" ng-click="restaurantInfo();" ng-class=""></a>
+  </ion-nav-buttons> -->
+  <!-- <ion-header-bar align-title="left" class="bar-subheader">
+    <div class="buttons">
+      <button class="button pull-right" style="float:right">Search<i class="icon ion-search placeholder-icon"></i></button>
+    </div>
+  </ion-header-bar> -->
     <ion-content overflow-scroll="true" padding="true" class="has-header">
         <form class="list">
-            <label class="item item-input" name="Location">
+            <label class="item item-input" name="FoodType" ng-click='showLocationBar()'>
                 <i class="icon ion-search placeholder-icon"></i>
-                <input type="search" placeholder="Food Type">
+                <input type="text" placeholder="tacos, asian, cheap..." ng-model="search.foodType" ng-change="valueChanged()">
             </label>
-            <label class="item item-input" name="Location">
-                <i class="icon ion-search placeholder-icon"></i>
-                <input type="search" placeholder="Location">
+            <label ng-if="locationBarShow === true" class="item item-input" name="search.location">
+                <i class="icon ion-location placeholder-icon"></i>
+                <input type="text" placeholder={{short_name}} ng-model="search.location" ng-change="valueChanged()">
             </label>
-        </form>
+        </form ng-click="restLocationInfo()">
           <ion-list>
             <ion-item class="item-divider list-inline">
-              <li class="listHeading" id="distanceTitle" ng-click="order('restaurant.dist')">Dist</li>
+              <li class="listHeading" id="distanceTitle" ng-click="order('restaurant.distance')">Dist</li>
               <li class="listHeading" id="nameTitle" ng-click="order('restaurant.name')"> Name</li>
               <li class="listHeading pull-right" id="waitTitle" ng-click="order('restaurant.wait')">Wait</li>
             </ion-item>
             <ion-item  ng-repeat="restaurant in data | orderBy:predicate:reverse" ui-sref="menu.restaurant" ng-click="transferEvent(restaurant.restaurant)">
-                {{ restaurant.restaurant.dist }}mi - {{ restaurant.restaurant.name }} <img class="waitColorDot" ng-src="../img/{{restaurant.restaurant.wait}}.png">
+                {{ restaurant.restaurant.distance }}mi - {{ restaurant.restaurant.name }} <img class="waitColorDot" ng-src="../img/{{restaurant.restaurant.wait}}.png">
                 <img class="rightChevron" ng-src="../img/rightChevron.png">
             </ion-item>
           </ion-list>
