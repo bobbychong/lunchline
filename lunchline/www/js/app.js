@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('lunchline', ['ionic', 'lunchline.auth', 'lunchline.favorites', 'lunchline.home', 'lunchline.list', 'lunchline.profile', 'lunchline.restaurant', 'lunchline.routes', 'lunchline.services', 'lunchline.directives', 'ngMap', 'ion-sticky', 'firebase'])
+angular.module('lunchline', ['ionic', 'lunchline.auth', 'lunchline.favorites', 'lunchline.home', 'lunchline.list', 'lunchline.profile', 'lunchline.restaurant', 'lunchline.routes', 'lunchline.services', 'lunchline.directives', 'ngMap', 'ion-sticky', 'firebase', 'angularMoment'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
