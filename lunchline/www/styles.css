@@ -370,6 +370,10 @@ span.restaurant-name {
   font-weight: bold;
 }
 
+.ion-android-favorite {
+  color: #E91E63;
+}
+
 /*side menu*/
 
 /*.header-bar.bar-stable {
