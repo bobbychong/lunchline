@@ -7,7 +7,22 @@ angular.module('lunchline.list', [])
    $scope.foodAndLocation = {};
    $scope.search = { foodType: null, location:null };
 
-   if($scope.userLocation.city.short_name) {
+   // get recent updates
+   $scope.getCollection = function() {
+     Data.getCollection(function(fetchedData) {
+         if (fetchedData.length > 0) {
+           $scope.data = fetchedData;
+         }
+         if (Data.getSearchCalled() === true) {
+           console.log('this is the truth from back search ', Data.getSearchCalled());
+           $scope.searchCalled = true;
+         }
+       });
+   };
+
+   $scope.getCollection();
+
+   if ($scope.userLocation.city.short_name) {
      $scope.short_name = $scope.userLocation.city.short_name + ', ' + $scope.userLocation.state.short_name;
    }
 
@@ -18,8 +33,6 @@ angular.module('lunchline.list', [])
    $scope.foodTypeChange = function(v) {
      $scope.search.location = v;
    };
-
-   $scope.time = new Date();
 
    // Function called when a wait time is reported.  Saves to session storage for refresh/back cases
    // and updates database.
@@ -71,13 +84,6 @@ angular.module('lunchline.list', [])
      }
    }
 
-   // get recent updates when you hit back
-   $scope.$root.getRecentUpdate = function() {
-     Data.getRecentUpdate($scope.data, function(fetchedData) {
-         $scope.data = fetchedData;
-       });
-   }
-
    // Sets default order to be ascending
    $scope.reverse = true;
    $scope.order('restaurant.distance');
@@ -95,9 +101,6 @@ angular.module('lunchline.list', [])
        $scope.$root.locationBarShow = false;
      }
    }
-
-   // show header filter when search is called
-   $scope.searchCalled = false;
 
    // loading
    $scope.show = function() {
@@ -122,6 +125,11 @@ angular.module('lunchline.list', [])
 
    $scope.hide = function(){
      $ionicLoading.hide();
+   };
+
+   $scope.$root.getRecentUpdate = function() {
+     console.log('getRecentUpdate is called');
+     Data.getRecentUpdate();
    };
 
 })

@@ -40,13 +40,16 @@ angular.module('lunchline.services', [])
 })
 .factory('Data', function($http) {
 
+  var collection = [];
+  var searchCalled = false;
+
   var getData = function(userLoc, callback) {
     $http({
       method: 'POST',
       url: 'http://localhost:8080/api/rest/search',
       data: userLoc
     }).then(function success(data) {
-        var collection = data.data.map(function(restaurant) {
+        collection = data.data.map(function(restaurant) {
           return {
             restaurant: restaurant
           };
@@ -61,17 +64,20 @@ angular.module('lunchline.services', [])
   var clickedItem = {};
 
   // Get recent update
-  var getRecentUpdate = function(restaurants) {
+  var getRecentUpdate = function(callback) {
+    console.log('Get recent update is called here is the collection', collection);
     $http({
       method: 'POST',
       url: 'http://localhost:8080/api/rest/recent',
-      data: restaurants
+      data: collection
     }).then(function success(data) {
-        var collection = data.data.map(function(restaurant) {
+        console.log(data);
+        collection = data.data.map(function(restaurant) {
           return {
             restaurant: restaurant
           };
         });
+        searchCalled = true;
         callback(collection);
       },
       function error(response) {
@@ -79,10 +85,20 @@ angular.module('lunchline.services', [])
       });
   };
 
+  var getCollection = function(callback) {
+    callback(collection);
+  }
+
+  var getSearchCalled = function() {
+    return searchCalled;
+  }
+
   return {
     getData: getData,
     clickedItem: clickedItem,
-    getRecentUpdate: getRecentUpdate
+    getRecentUpdate: getRecentUpdate,
+    getCollection: getCollection,
+    getSearchCalled: getSearchCalled
   }
 // Distance factory: calculates the distance of a lat/long from the user's lat/long
 })
