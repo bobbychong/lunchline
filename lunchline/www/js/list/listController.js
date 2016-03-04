@@ -1,7 +1,20 @@
 angular.module('lunchline.list', [])
 
-.controller('listController', function(Data, $scope, Geolocation, $ionicLoading) {
+.controller('listController', function(Data, $scope, Geolocation, $ionicLoading, $ionicHistory, $ionicNavBarDelegate, $ionicSideMenuDelegate) {
    $scope.data = [];
+
+   // go back updates when you hit back
+   $scope.$root.GoBack = function() {
+     if ($ionicHistory.backTitle() === "Login" || $ionicHistory.backTitle() ==='Signup') {
+       $ionicHistory.nextViewOptions({
+         disableBack: true
+         });
+     } else {
+       Data.getRecentUpdate(function(data) {
+         $ionicHistory.goBack();
+       });
+     }
+   };
 
    $scope.short_name = 'address, city, zip';
    $scope.foodAndLocation = {};
@@ -110,7 +123,7 @@ angular.module('lunchline.list', [])
    $scope.show = function() {
      $ionicLoading.show({
        // The text to display in the loading indicator
-       content: '<i class=" ion-loading-c"></i> ',
+       content: '<div style="display: flex; justify-content: center; align-items: center"><i class="ion-loading-c"></i></div>',
 
        // The animation to use
        animation: 'fade-in',

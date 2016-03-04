@@ -7,15 +7,6 @@ angular.module('lunchline.routes', [])
   // Set up the various states which the app can be in.
   // Each state's controller can be found in controllers.js
   $stateProvider
-  .state('menu.home', {
-    url: '/home',
-    views: {
-      'side-menu': {
-        templateUrl: 'templates/home.html',
-        controller: 'homeController'
-      }
-    }
-  })
   .state('menu.list', {
     url: '/list',
     views: {
@@ -38,7 +29,16 @@ angular.module('lunchline.routes', [])
     url: '/side-menu',
     templateUrl: 'templates/menu.html',
     abstract:true,
-    controller: 'homeController',
+    controller: 'authController'
+  })
+  .state('menu.favorites', {
+    url: '/favorites',
+    views: {
+      'side-menu': {
+        templateUrl: 'templates/favorites.html',
+        controller: 'favoritesController'
+      }
+    },
     resolve: {
       // controller will not be loaded until $waitForAuth resolves
       // Auth refers to our $firebaseAuth wrapper in the example above
@@ -48,15 +48,6 @@ angular.module('lunchline.routes', [])
       }]
     }
   })
-  .state('menu.favorites', {
-    url: '/favorites',
-    views: {
-      'side-menu': {
-        templateUrl: 'templates/favorites.html',
-        controller: 'favoritesController'
-      }
-    }
-  })
   .state('menu.profile', {
     url: '/profile',
     views: {
@@ -64,19 +55,35 @@ angular.module('lunchline.routes', [])
         templateUrl: 'templates/profile.html',
         controller: 'profileController'
       }
+    },
+    resolve: {
+      // controller will not be loaded until $waitForAuth resolves
+      // Auth refers to our $firebaseAuth wrapper in the example above
+      "currentAuth": ["Auth", function(Auth) {
+        // $waitForAuth returns a promise so the resolve waits for it to complete
+        return Auth.auth.$requireAuth();
+      }]
     }
   })
-  .state('login', {
+  .state('menu.login', {
     url: '/login',
-    templateUrl: 'templates/login.html',
-    controller: 'authController'
+    views: {
+      'side-menu': {
+        templateUrl: 'templates/login.html',
+        controller: 'authController'
+      }
+    }
   })
-  .state('signup', {
+  .state('menu.signup', {
     url: '/signup',
-    templateUrl: 'templates/signup.html',
-    controller: 'authController'
+    views: {
+      'side-menu': {
+        templateUrl: 'templates/signup.html',
+        controller: 'authController'
+      }
+    }
   })
 
-$urlRouterProvider.otherwise('/login')
+$urlRouterProvider.otherwise('/menu.list')
 
 })

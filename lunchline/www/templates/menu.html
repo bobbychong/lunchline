@@ -17,11 +17,11 @@
         </ion-header-bar>
         <ion-content padding="false" class="dark side-menu-left has-header">
             <ion-list>
-                <ion-item class="item" ui-sref="menu.home" menu-close="">Home</ion-item>
                 <ion-item class="item" ui-sref="menu.list" menu-close="">Restaurants</ion-item>
-                <ion-item class="item" ui-sref="menu.favorites" menu-close>Favorites</ion-item>
-                <ion-item class="item" ui-sref="menu.profile" menu-close="">Profile</ion-item>
-                <ion-item class="item" ng-click="logout()" ui-sref="menu.home" menu-close="">Log Out</ion-item>
+                <ion-item ng-if="checkAuth() === true" class="item" ui-sref="menu.favorites" menu-close>Favorites</ion-item>
+                <ion-item ng-if="checkAuth() === true" class="item" ui-sref="menu.profile" menu-close="">Profile</ion-item>
+                <ion-item ng-if="checkAuth() === false" class="item" ui-sref="menu.login" menu-close="">Login</ion-item>
+                <ion-item ng-if="checkAuth() === true" class="item" ng-click="logout()" ui-sref="menu.login" menu-close="">Log Out</ion-item>
             </ion-list>
         </ion-content>
     </ion-side-menu>

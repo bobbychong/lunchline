@@ -4,16 +4,20 @@ angular.module('lunchline.services', [])
   var auth = $firebaseAuth(ref);
   var authRef = new Firebase("https://instalunchline.firebaseio.com/.info/authenticated");
 
+  var authStatus = false;
+
   var checkAuth = function(){
     authRef.on("value", function(snap) {
       if (snap.val() === true) {
-        console.log("authenticated");
-        return true;
+        authStatus = true;
       } else {
-        console.log("not authenticated");
-        return false;
+        authStatus = false;
       }
     });
+  }
+
+  var getAuth = function() {
+    return authStatus;
   }
 
   var logout = function(){
@@ -36,7 +40,8 @@ angular.module('lunchline.services', [])
     auth: auth,
     checkAuth: checkAuth,
     fbLogin: fbLogin,
-    logout: logout
+    logout: logout,
+    getAuth: getAuth
   }
 })
 .factory('Data', function($http) {
