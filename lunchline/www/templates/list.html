@@ -20,7 +20,7 @@
             </ion-item>
             <ion-item class="item-text-wrap" ng-repeat="restaurant in data | orderBy:predicate:reverse" ui-sref="menu.restaurant" ng-click="transferEvent(restaurant.restaurant)">
                 <span ng-if="restaurant.restaurant.distance !== 0 && restaurant.restaurant.distance">{{ restaurant.restaurant.distance }}mi - </span>
-                <span>{{ restaurant.restaurant.name }}</span>
+                <span class="restaurant-name">{{ restaurant.restaurant.name }}</span>
                 <div ng-if="restaurant.restaurant.time.length > 0" class="checkInTime">
                   Last updated: <span class="moment" am-time-ago="restaurant.restaurant.time[restaurant.restaurant.time.length -1].date | amFromUnix"></span>
                 </div>
