@@ -9,11 +9,6 @@ angular.module('lunchline.restaurant', [])
       });
   };
 
-  /*$scope.$root.getRecentUpdate = function() {
-    console.log('getRecentUpdate is called');
-    Data.getRecentUpdate();
-  };*/
-
   $scope.restaurant = {
     id: '',
     name: '',
@@ -29,8 +24,8 @@ angular.module('lunchline.restaurant', [])
 
   $scope.userLocation = {};
 
-  // grab the userlocation from factory
-  $scope.grabUserLocation = function(){
+  // grab the userlocation from storage
+  $scope.grabUserLocation = function() {
     $scope.userLocation = JSON.parse(sessionStorage['locationStorage']);
     console.log($scope.userLocation);
   };
@@ -166,4 +161,4 @@ angular.module('lunchline.restaurant', [])
         break;
     }
   }
-})
+});

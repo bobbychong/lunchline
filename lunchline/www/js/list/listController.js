@@ -1,13 +1,13 @@
 angular.module('lunchline.list', [])
 
-.controller('listController', function(distance, Data, $scope, Geolocation, $ionicLoading) {
+.controller('listController', function(Data, $scope, Geolocation, $ionicLoading) {
    $scope.data = [];
    $scope.userLocation = JSON.parse(sessionStorage['locationStorage']) || {};
    $scope.short_name = 'address, city, zip';
    $scope.foodAndLocation = {};
    $scope.search = { foodType: null, location:null };
 
-   // get recent updates
+   // get recent updates when you press back
    $scope.getCollection = function() {
      Data.getCollection(function(fetchedData) {
          if (fetchedData.length > 0) {

@@ -1,42 +1,42 @@
 angular.module('lunchline.services', [])
-.factory('Auth', function($http, $state, $window, $firebaseAuth){
+.factory('Auth', function($http, $state, $window, $firebaseAuth) {
   var ref = new Firebase('https://instalunchline.firebaseio.com');
   var auth = $firebaseAuth(ref);
-  var authRef = new Firebase("https://instalunchline.firebaseio.com/.info/authenticated");
+  var authRef = new Firebase('https://instalunchline.firebaseio.com/.info/authenticated');
 
-  var checkAuth = function(){
-    authRef.on("value", function(snap) {
+  var checkAuth = function() {
+    authRef.on('value', function(snap) {
       if (snap.val() === true) {
-        console.log("authenticated");
+        console.log('authenticated');
         return true;
       } else {
-        console.log("not authenticated");
+        console.log('not authenticated');
         return false;
       }
     });
-  }
+  };
 
-  var logout = function(){
+  var logout = function() {
     ref.unauth();
     sessionStorage.removeItem('locationStorage');
-  }
+  };
 
-  var fbLogin = function(){
-    ref.authWithOAuthPopup("facebook", function(error, authData) {
+  var fbLogin = function() {
+    ref.authWithOAuthPopup('facebook', function(error, authData) {
       if (error) {
-        console.log("Login Failed!", error);
+        console.log('Login Failed!', error);
       } else {
-        console.log("Authenticated successfully with payload:", authData);
+        console.log('Authenticated successfully with payload:', authData);
       }
     });
-  }
+  };
 
   return {
     auth: auth,
     checkAuth: checkAuth,
     fbLogin: fbLogin,
     logout: logout
-  }
+  };
 })
 .factory('Data', function($http) {
 
@@ -57,7 +57,7 @@ angular.module('lunchline.services', [])
         callback(collection);
       },
       function error(response) {
-        console.log("ERROR: ", response);
+        console.log('ERROR: ', response);
       });
   };
   // Storage of clicked item on listView so that restView can pull up data
@@ -65,7 +65,6 @@ angular.module('lunchline.services', [])
 
   // Get recent update
   var getRecentUpdate = function(callback) {
-    console.log('Get recent update is called here is the collection', collection);
     $http({
       method: 'POST',
       url: 'http://localhost:8080/api/rest/recent',
@@ -81,17 +80,17 @@ angular.module('lunchline.services', [])
         callback(collection);
       },
       function error(response) {
-        console.log("ERROR: ", response);
+        console.log('ERROR: ', response);
       });
   };
 
   var getCollection = function(callback) {
     callback(collection);
-  }
+  };
 
   var getSearchCalled = function() {
     return searchCalled;
-  }
+  };
 
   return {
     getData: getData,
@@ -99,38 +98,8 @@ angular.module('lunchline.services', [])
     getRecentUpdate: getRecentUpdate,
     getCollection: getCollection,
     getSearchCalled: getSearchCalled
-  }
-// Distance factory: calculates the distance of a lat/long from the user's lat/long
+  };
 })
-
-.factory('distance', function() {
-  var calc = function(userLoc, destinLoc) {
-    //Expects objects with properties 'lat & long'
-    var lat1 = userLoc.lat,
-      long1 = userLoc.long,
-      lat2 = destinLoc.lat,
-      long2 = destinLoc.long;
-    var deg2rad = function(deg) {
-      return deg * (Math.PI / 180)
-    }
-    var R = 6371; // Radius of Earth in meters
-    var dLat = deg2rad(lat2 - lat1);
-    var dLon = deg2rad(long2 - long1);
-    var a =
-      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-      Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
-      Math.sin(dLon / 2) * Math.sin(dLon / 2);
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    var d = (R * c) * 0.621371;
-    return Math.round(d * 10) / 10
-  }
-
-  return {
-    calc: calc
-  }
-// Update factory : updates the database on a reported restaurant wait time with put request
-})
-
 .factory('Update', function($http) {
 
   function updateWait(objToSend) {
@@ -150,7 +119,6 @@ angular.module('lunchline.services', [])
     updateWait: updateWait
   };
 })
-
 .factory('Geolocation', function() {
 
   // get userLocation for restaurantView address
@@ -164,13 +132,13 @@ angular.module('lunchline.services', [])
     }
     //Get the latitude and the longitude;
     function successFunction(position) {
-        var lat = position.coords.latitude;
-        var lng = position.coords.longitude;
-        codeLatLng(lat, lng)
+      var lat = position.coords.latitude;
+      var lng = position.coords.longitude;
+      codeLatLng(lat, lng);
     }
 
-    function errorFunction(){
-        alert('Geocoder failed');
+    function errorFunction() {
+      console.log('Geocoder failed');
     }
 
     function initialize() {
@@ -185,34 +153,33 @@ angular.module('lunchline.services', [])
       var latlng = new google.maps.LatLng(lat, lng);
       geocoder.geocode({'latLng': latlng}, function(results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
-        console.log(results)
+          console.log(results);
           if (results[1]) {
-           //formatted address
-           /*alert(results[0].formatted_address)*/
-          //find country name
-          for (var i = 0; i < results[0].address_components.length; i++) {
-           for (var b = 0; b < results[0].address_components[i].types.length; b++) {
-            //there are different types that might hold a city admin_area_lvl_1 usually does in come cases looking for sublocality type will be more appropriate
-              if (results[0].address_components[i].types[b] == 'locality') {
-                //this is the object you are looking for
-                city = results[0].address_components[i];
-                break;
-              }
-              if (results[0].address_components[i].types[b] == 'administrative_area_level_1') {
-                state = results[0].address_components[i];
-                break;
+            //formatted address
+            /*alert(results[0].formatted_address)*/
+            //find country name
+            for (var i = 0; i < results[0].address_components.length; i++) {
+              for (var b = 0; b < results[0].address_components[i].types.length; b++) {
+                //there are different types that might hold a city admin_area_lvl_1 usually does in come cases looking for sublocality type will be more appropriate
+                if (results[0].address_components[i].types[b] == 'locality') {
+                  //this is the object you are looking for
+                  city = results[0].address_components[i];
+                  break;
+                }
+                if (results[0].address_components[i].types[b] == 'administrative_area_level_1') {
+                  state = results[0].address_components[i];
+                  break;
+                }
               }
             }
-          }
-          //city data
-          console.log('this is the city ', city.short_name);
-          console.log('this is the state ', state.short_name);
-          /*alert(city.short_name + ' ' + city.long_name)*/
+            //city data
+            console.log('this is the city ', city.short_name);
+            console.log('this is the state ', state.short_name);
 
-          userLocation.city = city;
-          userLocation.state = state;
+            userLocation.city = city;
+            userLocation.state = state;
 
-          sessionStorage['locationStorage'] = JSON.stringify(userLocation);
+            sessionStorage['locationStorage'] = JSON.stringify(userLocation);
 
           } else {
             alert('No results found');
@@ -221,14 +188,14 @@ angular.module('lunchline.services', [])
           alert('Geocoder failed due to: ' + status);
         }
       });
-     }
-     initialize();
-   };
+    }
+    initialize();
+  };
 
-   return {
+  return {
      locationInfo: locationInfo,
      userLocation: userLocation
-   }
+   };
 
 })
 .factory('User', function($http) {
@@ -285,4 +252,4 @@ angular.module('lunchline.services', [])
     addFavorites: addFavorites,
     getFavorites: getFavorites
   }
-})
+});
