@@ -27,6 +27,7 @@ angular.module('lunchline.auth', [])
             console.log("Error logging user in:", error);
         }
       } else {
+        console.log('trying to log in!')
         User.getUser(authData)
         console.log("Authenticated successfully with payload:", authData);
         $state.go('menu.list');
@@ -51,8 +52,18 @@ angular.module('lunchline.auth', [])
     })
   }
 
-  $scope.auth = function(){
+  $scope.auth = function() {
     Auth.checkAuth();
+  }
+
+  $scope.checkAuth = function() {
+    var result = false;
+    Auth.checkAuth();
+    if (Auth.getAuth() === true) {
+      console.log('this is true');
+      result = true;
+    }
+    return result;
   }
 
   $scope.fbLogin = function(){
@@ -61,6 +72,7 @@ angular.module('lunchline.auth', [])
 
   $scope.logout = function(){
     Auth.logout();
+    $state.go('login')
   }
 
   $scope.locationInfo = function() {
