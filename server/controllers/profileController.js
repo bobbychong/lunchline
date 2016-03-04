@@ -37,7 +37,15 @@ exports.addFavorites = function(req, res) {
     if(err) {
       throw err;
     }
-    profile.favorites.push(req.body.rest);
+    var fave = profile.favorites;
+    fave.push(req.body.favorite);
+    Profile.findOneAndUpdate({uid: req.body.uid}, {favorites: fave}, {upsert: true}, function(err, profile) {
+      if (err) {
+        console.log("user favorites not saved");
+        throw err;
+      }
+      res.sendStatus(200);
+    });
   });
 };
 
