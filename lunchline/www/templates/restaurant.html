@@ -18,7 +18,8 @@
           <h3 class="restInfo"><span id="price">{{ restaurant.price }}</span> - {{ restaurant.category }}</h3>
         </ion-item>
         <ion-item>
-          <h3 class="restInfo" ng-click="addFavorites()">Add to Favorites <i class="ion-android-favorite"></i></h3>
+          <h3 class="restInfo" ng-click="addFavorites()" ng-if="checkHist()">Add to Favorites <i class="ion-android-favorite"></i></h3>
+          <h3 class="restInfo" ng-click="removeFavorite()" ng-if="checkHist() === false">Remove from favorites</h3>
         </ion-item>
       </ion-list>
 
