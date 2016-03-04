@@ -1,6 +1,6 @@
 angular.module('lunchline.restaurant', [])
 
-.controller('restaurantController', function($scope, Data, Update, Geolocation, $ionicHistory) {
+.controller('restaurantController', function($scope, Data, Update, Geolocation, $ionicHistory, Favorites, $window) {
 
   // get recent updates when you hit back
   $scope.$root.GoBack = function() {
@@ -49,6 +49,7 @@ angular.module('lunchline.restaurant', [])
     var item = Data.clickedItem;
 
     $scope.restaurant.place_id = item.place_id;
+    $scope.restaurant.id = item.id;
     $scope.restaurant.name = item.name;
 
     var type = item.types;
@@ -124,6 +125,11 @@ angular.module('lunchline.restaurant', [])
     updateWaitColorDiv(wait);
     Update.updateWait(sendObj);
   };
+
+  $scope.addFavorites = function() {
+    $scope.user = JSON.parse($window.localStorage['firebase:session::instalunchline']).uid;
+    Favorites.addFavorites($scope.user, $scope.restaurant);
+  }
 
   // Sweet Alert popup to thank users when they check in a wait time.
   function updateWaitColorDiv(wait) {

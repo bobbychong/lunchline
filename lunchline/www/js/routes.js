@@ -48,7 +48,7 @@ angular.module('lunchline.routes', [])
       }]
     }
   })
-  .state('favorites', {
+  .state('menu.favorites', {
     url: '/favorites',
     views: {
       'side-menu': {

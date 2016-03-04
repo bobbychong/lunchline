@@ -31,3 +31,21 @@ exports.getUser = function(req, res){
     res.json(profile);
   });
 };
+
+exports.addFavorites = function(req, res) {
+  Profile.findOne({uid: req.body.uid}, function(err, profile) {
+    if(err) {
+      throw err;
+    }
+    profile.favorites.push(req.body.rest);
+  });
+};
+
+exports.getFavorites = function(req, res) {
+  Profile.findOne({uid: req.body.uid}, function(err, profile) {
+    if(err) {
+      throw err;
+    }
+    res.json(profile.favorites);
+  });
+};
