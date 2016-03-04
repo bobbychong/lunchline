@@ -41,10 +41,10 @@ angular.module('lunchline.auth', [])
         user.firstname = $scope.user.firstname;
         user.lastname = $scope.user.lastname;
         user.image_url = $scope.user.image_url;
+        console.log(user);
         console.log($scope.user);
         User.sendUser(user);
-        console.log(user);
-        $state.go('menu.list');
+        $scope.login();
       } else {
         console.log("Error creating user:", error);
       }
