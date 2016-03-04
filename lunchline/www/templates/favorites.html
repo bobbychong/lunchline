@@ -1,7 +1,15 @@
-<ion-view title="Favorites">
+<ion-view cache-view="false" title="Favorites List">
     <ion-content overflow-scroll="true" padding="true" class="has-header">
-        <ion-list ng-repeat="n in data.favorites track by $index">
-            <ion-item ng-click="getFavorites()">{{n}}</ion-item>
+        <ion-list>
+          <ion-item class="item-text-wrap" ng-repeat="restaurant in data | orderBy:predicate:reverse" ui-sref="menu.restaurant" ng-click="transferEvent(restaurant.restaurant)">
+              <span ng-if="restaurant.distance !== 0 && restaurant.distance">{{ restaurant.distance }}mi - </span>
+              <span>{{ restaurant.name }}</span>
+              <div ng-if="restaurant.time.length > 0" class="checkInTime">
+                Last updated: <span class="moment" am-time-ago="restaurant.time[restaurant.time.length -1].date | amFromUnix"></span>
+              </div>
+              <img class="waitColorDot" ng-src="../img/{{restaurant.wait}}.png">
+              <img class="rightChevron" ng-src="../img/rightChevron.png">
+          </ion-item>
         </ion-list>
     </ion-content>
 </ion-view>

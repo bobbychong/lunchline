@@ -5,8 +5,11 @@ angular.module('lunchline.restaurant', [])
   // get recent updates when you hit back
   $scope.$root.GoBack = function() {
     Data.getRecentUpdate(function(data) {
+      $ionicHistory.goBack();
+      if (!data) {
         $ionicHistory.goBack();
-      });
+      }
+    });
   };
 
   $scope.restaurant = {
