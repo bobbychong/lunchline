@@ -85,8 +85,14 @@ a.list-group-item {
 }
 
 #distanceTitle {
-  padding-right: 1.5em;
+  position: absolute;
+  left: 3%
 }
+
+#nameTitle {
+  padding-left: 3em;
+}
+
 
 #waitTitle {
   position: absolute;
@@ -135,6 +141,14 @@ a.list-group-item {
 
 .restInfo {
   font-size: 1.1em;
+}
+
+#star {
+  color: #FDD835;
+}
+
+#price {
+  color: #4CAF50;
 }
 
 .restDetails {
@@ -316,3 +330,96 @@ map {
   height: 100px;
   width:100%;
 }
+
+/*color palette*/
+
+.color1 {
+  color: rgba(5, 102, 141, 100);
+}
+
+.color1background {
+  background-color: rgba(5, 102, 141, 100);
+}
+
+.color1fill {
+  fill: rgba(5, 102, 141, 100);
+}
+
+.color2 {
+  color: rgba(2, 128, 144, 100);
+  background-color: rgba(2, 128, 144, 100);
+}
+
+.color3 {
+  color: rgba(0, 168, 150, 100);
+  background-color: rgba(0, 168, 150, 100);
+}
+
+.color4 {
+  color: rgba(2, 195, 154, 100);
+  background-color: rgba(2, 195, 154, 100);
+}
+
+.color5 {
+  color: rgba(240, 243, 189, 100);
+  background-color: rgba(240, 243, 189, 100);
+}
+
+/*nav buttons*/
+button.button.button-icon.button-clear.ion-navicon {
+  color: #2196F3;
+}
+
+button.button.button-icon.button-clear.ion-search {
+  color: #2196F3;
+}
+
+span.restaurant-name {
+  font-weight: bold;
+}
+
+.ion-android-favorite {
+  color: #E91E63;
+}
+
+/*side menu*/
+
+/*.header-bar.bar-stable {
+  background-color: rgba(5, 102, 141, 100);
+}
+
+
+.dark {
+  background-color: rgba(5, 102, 141, 100) !important;
+  color: #ffffff;
+  .scroll-content {
+    background-color: rgba(5, 102, 141, 100) !important;
+  }
+  .item {
+    background-color: $dark;
+    border: none;
+    border-top: 1px solid #464646;
+    border-bottom: 2px solid #333333;
+    padding: 20px;
+    color: #F0F1F1;
+    max-height: none;
+
+    &:last-child {
+      border-bottom: 1px solid #333333;
+    }
+    &.current{ background-color:darken( $dark, 10% )   !important;
+       border-top: 1px solid #464646 !important;
+    border-bottom: 2px solid #333333 !important;
+      p,h3{opacity: .7;}
+            }
+  }
+  h2,
+  h3,
+  p,
+  a{
+    color: #F0F1F1;
+  }
+}
+.dark-head {
+  text-decoration: none;
+}*/
