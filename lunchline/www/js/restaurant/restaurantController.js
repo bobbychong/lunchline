@@ -26,8 +26,13 @@ angular.module('lunchline.restaurant', [])
 
   // grab the userlocation from storage
   $scope.grabUserLocation = function() {
-    $scope.userLocation = JSON.parse(sessionStorage['locationStorage']);
-    console.log($scope.userLocation);
+    if( sessionStorage['locationStorage'] === undefined ) {
+      $scope.userLocation = {};
+    }
+    else {
+      $scope.userLocation = JSON.parse(sessionStorage['locationStorage']);
+      $scope.short_name = $scope.userLocation.city.short_name + ', ' + $scope.userLocation.state.short_name;
+    }
   };
 
   $scope.grabUserLocation();
