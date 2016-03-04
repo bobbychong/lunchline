@@ -39,7 +39,13 @@ exports.addFavorites = function(req, res) {
       throw err;
     }
     var fave = profile.favorites;
-    if(_.indexOf(fave, {id: req.body.favorite.id}) === -1) {
+    var duplicate = false;
+    for(var i = 0; i < fave.length; i++) {
+      if(fave[i]["id"] === req.body.favorite.id) {
+        duplicate = true;
+      }
+    }
+    if(duplicate === false) {
       fave.push({id: req.body.favorite.id});
     }
     console.log(fave);
@@ -54,6 +60,9 @@ exports.addFavorites = function(req, res) {
 };
 
 exports.getFavorites = function(req, res) {
+  console.log(req.body.location);
+  var lat = req.body.location.lat;
+  var lng = req.body.location.lng;
   Profile.findOne({uid: req.body.uid}, function(err, profile) {
     if(err) {
       throw err;
@@ -62,11 +71,17 @@ exports.getFavorites = function(req, res) {
     // JSON.parse(profile.favorites);
     _.each(profile.favorites, function(item) {
       Restaurant.findOne(item, function(err, obj) {
-        results.push(obj);
-        if(results.length === profile.favorites.length) {
-          res.json(results);
-        }
-      })
+        helpers.avgTime(obj, function(color){
+          if (lat || lng) {
+            obj.distance = helpers.distance(lat, lng, obj.geometry.location.lat, obj.geometry.location.lng);
+          }
+          obj.wait = color;
+          results.push(obj);
+          if(results.length === profile.favorites.length) {
+            res.json(results);
+          }
+        });
+      });
     });
   });
 };
