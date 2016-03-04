@@ -4,12 +4,13 @@ angular.module('lunchline.restaurant', [])
 
   // get recent updates when you hit back
   $scope.$root.GoBack = function() {
-    Data.getRecentUpdate(function(data) {
+    if($ionicHistory.backTitle() === "Favorites List"){
       $ionicHistory.goBack();
-      if (!data) {
+    } else {
+      Data.getRecentUpdate(function(data) {
         $ionicHistory.goBack();
-      }
-    });
+      });    
+    }
   };
 
   $scope.restaurant = {

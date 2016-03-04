@@ -4,10 +4,6 @@ angular.module('lunchline.favorites', [])
   var user = JSON.parse($window.localStorage['firebase:session::instalunchline'])
 
   $scope.data = {};
-  // User.getUser(user)
-  // .then(function(item){
-  //   $scope.user = item;
-  // })
 
   $scope.getFavorites = function(){
     $scope.data = Favorites.getFavorites(user)
@@ -16,5 +12,4 @@ angular.module('lunchline.favorites', [])
       });
   }
   $scope.getFavorites();
-  console.log($scope.data);
 })
