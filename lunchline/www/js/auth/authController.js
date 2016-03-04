@@ -8,8 +8,6 @@ angular.module('lunchline.auth', [])
   $scope.user = {};
 
   $scope.login = function(){
-
-
     ref.authWithPassword({
       email: $scope.user.email,
       password: $scope.user.password
@@ -29,6 +27,7 @@ angular.module('lunchline.auth', [])
             console.log("Error logging user in:", error);
         }
       } else {
+        User.getUser(authData)
         console.log("Authenticated successfully with payload:", authData);
         $state.go('menu.list');
       }
