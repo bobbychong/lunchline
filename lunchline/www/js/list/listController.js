@@ -56,7 +56,7 @@ angular.module('lunchline.list', [])
     } else {
       $scope.foodAndLocation.foodType = $scope.search.foodType;
       $scope.foodAndLocation.userLocation = $scope.userLocation;
-      $scope.foodAndLocation.location = $scope.search.location
+      $scope.foodAndLocation.location = $scope.search.location;
       console.log('not using geo location ', $scope.foodAndLocation);
       Data.getData($scope.foodAndLocation, function(fetchedData) {
          // Save fetched data to scope object
@@ -69,6 +69,13 @@ angular.module('lunchline.list', [])
        });
 
      }
+   }
+
+   // get recent updates when you hit back
+   $scope.$root.getRecentUpdate = function() {
+     Data.getRecentUpdate($scope.data, function(fetchedData) {
+         $scope.data = fetchedData;
+       });
    }
 
    // Sets default order to be ascending

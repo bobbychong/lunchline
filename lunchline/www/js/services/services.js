@@ -59,9 +59,30 @@ angular.module('lunchline.services', [])
   };
   // Storage of clicked item on listView so that restView can pull up data
   var clickedItem = {};
+
+  // Get recent update
+  var getRecentUpdate = function(restaurants) {
+    $http({
+      method: 'POST',
+      url: 'http://localhost:8080/api/rest/recent',
+      data: restaurants
+    }).then(function success(data) {
+        var collection = data.data.map(function(restaurant) {
+          return {
+            restaurant: restaurant
+          };
+        });
+        callback(collection);
+      },
+      function error(response) {
+        console.log("ERROR: ", response);
+      });
+  };
+
   return {
     getData: getData,
-    clickedItem: clickedItem
+    clickedItem: clickedItem,
+    getRecentUpdate: getRecentUpdate
   }
 // Distance factory: calculates the distance of a lat/long from the user's lat/long
 })
