@@ -291,3 +291,13 @@ map {
   text-align: center;
   color: black;
 }
+
+/*check in time*/
+.checkInTime {
+  font-size: .8em;
+  font-style: italic;
+  color: #aaaaaa;
+}
+
+.checkInTime.moment {
+}

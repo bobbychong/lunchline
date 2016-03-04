@@ -19,6 +19,8 @@ angular.module('lunchline.list', [])
      $scope.search.location = v;
    };
 
+   $scope.time = new Date();
+
    // Function called when a wait time is reported.  Saves to session storage for refresh/back cases
    // and updates database.
    $scope.transferEvent = function(obj) {
