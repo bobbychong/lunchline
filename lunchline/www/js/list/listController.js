@@ -2,7 +2,15 @@ angular.module('lunchline.list', [])
 
 .controller('listController', function(Data, $scope, Geolocation, $ionicLoading) {
    $scope.data = [];
-   $scope.userLocation = JSON.parse(sessionStorage['locationStorage']) || {};
+
+   if( sessionStorage['locationStorage'] === undefined ) {
+     $scope.userLocation = {};
+   }
+   else {
+     $scope.userLocation = JSON.parse(sessionStorage['locationStorage']);
+     $scope.short_name = $scope.userLocation.city.short_name + ', ' + $scope.userLocation.state.short_name;
+   }
+
    $scope.short_name = 'address, city, zip';
    $scope.foodAndLocation = {};
    $scope.search = { foodType: null, location:null };
@@ -21,10 +29,6 @@ angular.module('lunchline.list', [])
    };
 
    $scope.getCollection();
-
-   if ($scope.userLocation.city.short_name) {
-     $scope.short_name = $scope.userLocation.city.short_name + ', ' + $scope.userLocation.state.short_name;
-   }
 
    $scope.foodTypeChange = function(v) {
      $scope.search.foodType = v;
