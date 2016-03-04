@@ -236,7 +236,7 @@ angular.module('lunchline.services', [])
   var getUser = function(user) {
     return $http({
       method: 'POST',
-      url: 'http://localhost:8080/api/rest/profile',
+      url: 'http://localhost:8080/api/user/profile',
       data: user
     }).then(function(res) {
       return res.data;
@@ -246,7 +246,7 @@ angular.module('lunchline.services', [])
   var sendUser = function(user) {
     return $http({
       method: 'POST',
-      url: 'http://localhost:8080/api/rest/user',
+      url: 'http://localhost:8080/api/user/user',
       data: user
     }).then(function(res) {
       return res.data;
@@ -257,4 +257,32 @@ angular.module('lunchline.services', [])
     getUser: getUser,
     sendUser: sendUser
   };
+})
+.factory('Favorites', function($http) {
+  var addFavorites = function(user, rest) {
+    var data = {
+      uid: user,
+      favorite: rest
+    };
+    return $http({
+      method: 'PUT',
+      url: 'http://localhost:8080/api/user/favorite',
+      data: data
+    });
+  };
+
+  var getFavorites = function(user) {
+    return $http({
+      method: 'POST',
+      url: 'http://localhost:8080/api/user/getFave',
+      data: user
+    }).then(function(res) {
+      return res.data;
+    });
+  };
+
+  return {
+    addFavorites: addFavorites,
+    getFavorites: getFavorites
+  }
 })
