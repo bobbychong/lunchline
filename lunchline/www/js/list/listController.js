@@ -7,7 +7,7 @@ angular.module('lunchline.list', [])
    $scope.foodAndLocation = {};
    $scope.search = { foodType: null, location:null };
 
-   // get recent updates
+   // get recent updates when you press back
    $scope.getCollection = function() {
      Data.getCollection(function(fetchedData) {
          if (fetchedData.length > 0) {
