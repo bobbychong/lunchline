@@ -1,12 +1,14 @@
 angular.module('lunchline.list', [])
 
-.controller('listController', function(Data, $scope, Geolocation, $ionicLoading, $ionicHistory) {
+.controller('listController', function(Data, $scope, Geolocation, $ionicLoading, $ionicHistory, $ionicNavBarDelegate, $ionicSideMenuDelegate) {
    $scope.data = [];
 
    // go back updates when you hit back
    $scope.$root.GoBack = function() {
      if ($ionicHistory.backTitle() === "Login" || $ionicHistory.backTitle() ==='Signup') {
-       $ionicHistory.goBack();
+       $ionicHistory.nextViewOptions({
+         disableBack: true
+         });
      } else {
        Data.getRecentUpdate(function(data) {
          $ionicHistory.goBack();

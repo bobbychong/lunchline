@@ -60,7 +60,7 @@ angular.module('lunchline.auth', [])
     var result = false;
     Auth.checkAuth();
     if (Auth.getAuth() === true) {
-      console.log('this is true');
+      /*console.log('this is true');*/
       result = true;
     }
     return result;
@@ -72,7 +72,7 @@ angular.module('lunchline.auth', [])
 
   $scope.logout = function(){
     Auth.logout();
-    $state.go('login')
+    $state.go('menu.login')
   }
 
   $scope.locationInfo = function() {
