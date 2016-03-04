@@ -174,11 +174,7 @@ angular.module('lunchline.services', [])
           userLocation.city = city;
           userLocation.state = state;
 
-          /*$scope.city = city;
-          $scope.state = state;
-          $scope.short_name = $scope.city.short_name + ', ' + $scope.state.short_name;*/
-
-          callback(userLocation);
+          sessionStorage['locationStorage'] = JSON.stringify(userLocation);
 
           } else {
             alert('No results found');

@@ -1,13 +1,15 @@
 angular.module('lunchline.auth', [])
 
 
-.controller('authController', function($scope, Auth, User, $firebaseObject, $firebaseAuth, $state) {
+.controller('authController', function($scope, Auth, User, $firebaseObject, $firebaseAuth, $state, Geolocation) {
   var ref = new Firebase('https://instalunchline.firebaseio.com');
   var authRef = new Firebase("https://instalunchline.firebaseio.com/.info/authenticated");
 
   $scope.user = {};
-  
+
   $scope.login = function(){
+
+
     ref.authWithPassword({
       email: $scope.user.email,
       password: $scope.user.password
@@ -28,6 +30,7 @@ angular.module('lunchline.auth', [])
         }
       } else {
         console.log("Authenticated successfully with payload:", authData);
+        $state.go('menu.list');
       }
     })
   }
@@ -42,7 +45,7 @@ angular.module('lunchline.auth', [])
         console.log($scope.user);
         User.sendUser(user);
         console.log(user);
-        $state.go('menu.home');
+        $state.go('menu.list');
       } else {
         console.log("Error creating user:", error);
       }
@@ -59,5 +62,12 @@ angular.module('lunchline.auth', [])
 
   $scope.logout = function(){
     Auth.logout();
+    sessionStorage.removeItem('locationStorage');
   }
+
+  $scope.locationInfo = function() {
+    Geolocation.locationInfo();
+  };
+  $scope.locationInfo();
+
 })

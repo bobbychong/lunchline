@@ -2,10 +2,14 @@ angular.module('lunchline.list', [])
 
 .controller('listController', function(distance, Data, $scope, Geolocation, $ionicLoading) {
    $scope.data = [];
-   $scope.userLocation = {};
+   $scope.userLocation = JSON.parse(sessionStorage['locationStorage']);
    $scope.short_name = 'address, city, zip';
    $scope.foodAndLocation = {};
    $scope.search = { foodType: null, location:null };
+
+   if($scope.userLocation.city.short_name) {
+     $scope.short_name = $scope.userLocation.city.short_name + ', ' + $scope.userLocation.state.short_name;
+   }
 
    $scope.foodTypeChange = function(v) {
      $scope.search.foodType = v;
@@ -36,16 +40,10 @@ angular.module('lunchline.list', [])
      $scope.show();
      if ($scope.userLocation && $scope.search.location === null) {
        $scope.foodAndLocation.foodType = $scope.search.foodType;
+
        $scope.foodAndLocation.userLocation = $scope.userLocation;
        console.log('using geo location ', $scope.foodAndLocation);
        Data.getData($scope.foodAndLocation, function(fetchedData) {
-          for (var i = 0; i < fetchedData.length; i++) {
-             var destination = {
-                lat: fetchedData[i].restaurant.geometry.location.lat,
-                long: fetchedData[i].restaurant.geometry.location.lng
-             };
-             /*fetchedData[i].restaurant.dist = distance.calc($scope.userLocation, destination);*/
-          }
           // Save fetched data to scope object
           $scope.searchCalled = true;
           $scope.data = fetchedData;
@@ -59,16 +57,6 @@ angular.module('lunchline.list', [])
       $scope.foodAndLocation.location = $scope.search.location
       console.log('not using geo location ', $scope.foodAndLocation);
       Data.getData($scope.foodAndLocation, function(fetchedData) {
-         for (var i = 0; i < fetchedData.length; i++) {
-            var destination = {
-               lat: fetchedData[i].restaurant.geometry.location.lat,
-               long: fetchedData[i].restaurant.geometry.location.lng
-            };
-            console.log('this is the destination', destination);
-            console.log('this is the $scope.userLocation ', $scope.userLocation);
-            /*console.log('Let\'s Calculate the distance on the fly! ', distance.calc($scope.userLocation, destination));*/
-            /*fetchedData[i].restaurant.dist = distance.calc($scope.userLocation, destination);*/
-         }
          // Save fetched data to scope object
          $scope.searchCalled = true;
          $scope.data = fetchedData;
@@ -84,16 +72,6 @@ angular.module('lunchline.list', [])
    // Sets default order to be ascending
    $scope.reverse = true;
    $scope.order('restaurant.distance');
-
-   $scope.locationInfo = function() {
-     Geolocation.locationInfo(function(userLocation) {
-       $scope.userLocation = userLocation;
-       $scope.short_name = userLocation.city.short_name + ', ' + userLocation.state.short_name;
-       console.log('this is the callback of userLocation', $scope.userLocation)
-     });
-   };
-
-   $scope.locationInfo();
 
    // controls the location search bar and button showing up
    $scope.locationBarShow = false;
