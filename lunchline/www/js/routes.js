@@ -77,7 +77,7 @@ angular.module('lunchline.routes', [])
     controller: 'authController'
   })
 
-$urlRouterProvider.otherwise('/side-menu/home')
+$urlRouterProvider.otherwise('/login')
 
 })
 /*.config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {

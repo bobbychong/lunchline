@@ -34,6 +34,7 @@ exports.getRestaurants = function(req, res) {
   }
 
   https.get(url, function(response) {
+    console.log(url);
     var data;
     response.on('data', function(chunk) {
       data += chunk;
