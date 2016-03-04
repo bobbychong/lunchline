@@ -278,6 +278,8 @@ angular.module('lunchline.services', [])
   };
 
   var getFavorites = function(user) {
+    user.location = JSON.parse(sessionStorage['locationStorage']);
+    console.log(user.location);
     return $http({
       method: 'POST',
       url: 'http://localhost:8080/api/user/getFave',
