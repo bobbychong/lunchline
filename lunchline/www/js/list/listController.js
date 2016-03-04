@@ -3,6 +3,10 @@ angular.module('lunchline.list', [])
 .controller('listController', function(Data, $scope, Geolocation, $ionicLoading) {
    $scope.data = [];
 
+   $scope.short_name = 'address, city, zip';
+   $scope.foodAndLocation = {};
+   $scope.search = { foodType: null, location:null };
+
    if( sessionStorage['locationStorage'] === undefined ) {
      $scope.userLocation = {};
    }
@@ -10,10 +14,6 @@ angular.module('lunchline.list', [])
      $scope.userLocation = JSON.parse(sessionStorage['locationStorage']);
      $scope.short_name = $scope.userLocation.city.short_name + ', ' + $scope.userLocation.state.short_name;
    }
-
-   $scope.short_name = 'address, city, zip';
-   $scope.foodAndLocation = {};
-   $scope.search = { foodType: null, location:null };
 
    // get recent updates when you press back
    $scope.getCollection = function() {

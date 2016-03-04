@@ -10,6 +10,8 @@
                 <input type="text" placeholder={{short_name}} ng-model="search.location" ng-change="valueChanged()">
             </label>
         </form ng-click="restLocationInfo()">
+        <div ng-if="data.length === 0" class="pancake">
+        </div>
           <ion-list>
             <ion-item class="item-divider list-inline" ng-if="searchCalled === true">
               <li class="listHeading" id="distanceTitle" ng-if="data[0].restaurant.distance > 0 && data[0].restaurant.distance" ng-click="order('restaurant.distance')">Dist</li>
