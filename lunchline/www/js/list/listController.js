@@ -7,7 +7,22 @@ angular.module('lunchline.list', [])
    $scope.foodAndLocation = {};
    $scope.search = { foodType: null, location:null };
 
-   if($scope.userLocation.city.short_name) {
+   // get recent updates
+   $scope.getCollection = function() {
+     Data.getCollection(function(fetchedData) {
+         if (fetchedData.length > 0) {
+           $scope.data = fetchedData;
+         }
+         if (Data.getSearchCalled() === true) {
+           console.log('this is the truth from back search ', Data.getSearchCalled());
+           $scope.searchCalled = true;
+         }
+       });
+   };
+
+   $scope.getCollection();
+
+   if ($scope.userLocation.city.short_name) {
      $scope.short_name = $scope.userLocation.city.short_name + ', ' + $scope.userLocation.state.short_name;
    }
 
@@ -18,8 +33,6 @@ angular.module('lunchline.list', [])
    $scope.foodTypeChange = function(v) {
      $scope.search.location = v;
    };
-
-   $scope.time = new Date();
 
    // Function called when a wait time is reported.  Saves to session storage for refresh/back cases
    // and updates database.
@@ -56,7 +69,7 @@ angular.module('lunchline.list', [])
     } else {
       $scope.foodAndLocation.foodType = $scope.search.foodType;
       $scope.foodAndLocation.userLocation = $scope.userLocation;
-      $scope.foodAndLocation.location = $scope.search.location
+      $scope.foodAndLocation.location = $scope.search.location;
       console.log('not using geo location ', $scope.foodAndLocation);
       Data.getData($scope.foodAndLocation, function(fetchedData) {
          // Save fetched data to scope object
@@ -89,9 +102,6 @@ angular.module('lunchline.list', [])
      }
    }
 
-   // show header filter when search is called
-   $scope.searchCalled = false;
-
    // loading
    $scope.show = function() {
      $ionicLoading.show({
@@ -115,6 +125,11 @@ angular.module('lunchline.list', [])
 
    $scope.hide = function(){
      $ionicLoading.hide();
+   };
+
+   $scope.$root.getRecentUpdate = function() {
+     console.log('getRecentUpdate is called');
+     Data.getRecentUpdate();
    };
 
 })
