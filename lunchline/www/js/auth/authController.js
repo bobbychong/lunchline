@@ -62,7 +62,6 @@ angular.module('lunchline.auth', [])
 
   $scope.logout = function(){
     Auth.logout();
-    sessionStorage.removeItem('locationStorage');
   }
 
   $scope.locationInfo = function() {

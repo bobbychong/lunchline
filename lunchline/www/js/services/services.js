@@ -18,6 +18,7 @@ angular.module('lunchline.services', [])
 
   var logout = function(){
     ref.unauth();
+    sessionStorage.removeItem('locationStorage');
   }
 
   var fbLogin = function(){

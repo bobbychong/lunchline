@@ -19,7 +19,7 @@ angular.module('lunchline.restaurant', [])
 
   // grab the userlocation from factory
   $scope.grabUserLocation = function(){
-    $scope.userLocation = Geolocation.userLocation;
+    $scope.userLocation = JSON.parse(sessionStorage['locationStorage']);
     console.log($scope.userLocation);
   };
 
