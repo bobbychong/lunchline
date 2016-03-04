@@ -301,3 +301,18 @@ map {
 
 .checkInTime.moment {
 }
+
+/*pancake*/
+
+.pancake {
+  border-radius:50%;
+  border-style: solid;
+  border-color: #aaaaaa;
+  background-image: url('/img/pancake.jpg');
+  background-position:center center;
+  background-size:cover;
+  margin-top: 10%;
+  padding: 50% 50%;
+  height: 100px;
+  width:100%;
+}
