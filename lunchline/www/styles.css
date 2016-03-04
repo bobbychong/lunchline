@@ -145,7 +145,7 @@ a.list-group-item {
 }
 
 .oliveGreen {
-  background-color: #777D38;
+  background-color: #aaaaaa;
 }
 
 .lightText {
@@ -290,4 +290,14 @@ map {
   font-weight: bold;
   text-align: center;
   color: black;
+}
+
+/*check in time*/
+.checkInTime {
+  font-size: .8em;
+  font-style: italic;
+  color: #aaaaaa;
+}
+
+.checkInTime.moment {
 }

@@ -1,5 +1,8 @@
 angular.module('lunchline.directives', [])
 
-.directive('blankDirective', [function(){
-
-}]);
+/*.directive('restList', [function(){
+  return {
+    restrict: 'E',
+    templateUrl: 'restList.html'
+  };
+}]);*/

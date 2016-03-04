@@ -7,6 +7,8 @@
   "dependencies": {
     "ngmap": "^1.16.7",
     "ion-sticky": "^1.0.4",
-    "sweetalert2": "^0.3.4"
+    "sweetalert2": "^0.3.4",
+    "moment": "^2.11.2",
+    "angular-moment": "1.0.0-beta.4"
   }
 }

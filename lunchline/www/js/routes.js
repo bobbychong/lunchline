@@ -80,6 +80,3 @@ angular.module('lunchline.routes', [])
 $urlRouterProvider.otherwise('/login')
 
 })
-/*.config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
-    cfpLoadingBarProvider.includeSpinner = false;
-}]);*/
