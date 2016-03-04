@@ -182,8 +182,6 @@ angular.module('lunchline.services', [])
       userLocation.lat = lat;
       userLocation.long = lng;
 
-      sessionStorage['locationStorage'] = JSON.stringify(userLocation);
-
       var latlng = new google.maps.LatLng(lat, lng);
       geocoder.geocode({'latLng': latlng}, function(results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
@@ -214,7 +212,7 @@ angular.module('lunchline.services', [])
           userLocation.city = city;
           userLocation.state = state;
 
-
+          sessionStorage['locationStorage'] = JSON.stringify(userLocation);
 
           } else {
             alert('No results found');
