@@ -27,6 +27,7 @@ angular.module('lunchline.services', [])
         console.log("Login Failed!", error);
       } else {
         console.log("Authenticated successfully with payload:", authData);
+        $state.go('menu.list')
       }
     });
   }
