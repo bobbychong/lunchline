@@ -127,20 +127,25 @@ exports.updateWait = function(req, res) {
 };
 
 exports.getRecent = function(req, res) {
-  var array = req.body.recent;
+  var array = req.body;
   var results = [];
   _.each(array, function(rest){
-    Restaurant.findOne({id: rest.id}, function(err, obj) {
-      helpers.avgTime(obj, function(color){
-        // if (lat || lng) {
-        //   obj.distance = helpers.distance(lat, lng, obj.geometry.location.lat, obj.geometry.location.lng);
-        // }
-        obj.wait = color;
-        results.push(obj);
-      });
+    Restaurant.findOne({id: rest.restaurant.id}, function(err, obj) {
+        helpers.avgTime(obj, function(color){
+          obj.wait = color;
+          if (rest.restaurant.distance) {
+            obj.distance = rest.restaurant.distance;
+          }
+
+          results.push(obj);
+
+          if (array.length === results.length) {
+            console.log(results);
+            res.json(results);
+          }
+          
+        });
     });
   });
-  res.json(results);
-
 
 };
