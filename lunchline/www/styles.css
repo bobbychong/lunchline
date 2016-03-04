@@ -143,6 +143,14 @@ a.list-group-item {
   font-size: 1.1em;
 }
 
+#star {
+  color: #FDD835;
+}
+
+#price {
+  color: #4CAF50;
+}
+
 .restDetails {
   font-size: .8em;
   overflow: inherit ;
