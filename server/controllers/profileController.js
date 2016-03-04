@@ -1,5 +1,6 @@
 var helpers = require('../util/helpers.js');
 var Profile = require('../models/profileModel.js');
+var Restaurant = require('../models/restModel.js');
 var _ = require('underscore');
 var https = require('https');
 
@@ -38,7 +39,10 @@ exports.addFavorites = function(req, res) {
       throw err;
     }
     var fave = profile.favorites;
-    fave.push(req.body.favorite);
+    if(_.indexOf(fave, {id: req.body.favorite.id}) === -1) {
+      fave.push({id: req.body.favorite.id});
+    }
+    console.log(fave);
     Profile.findOneAndUpdate({uid: req.body.uid}, {favorites: fave}, {upsert: true}, function(err, profile) {
       if (err) {
         console.log("user favorites not saved");
@@ -54,6 +58,15 @@ exports.getFavorites = function(req, res) {
     if(err) {
       throw err;
     }
-    res.json(profile.favorites);
+    var results = [];
+    // JSON.parse(profile.favorites);
+    _.each(profile.favorites, function(item) {
+      Restaurant.findOne(item, function(err, obj) {
+        results.push(obj);
+        if(results.length === profile.favorites.length) {
+          res.json(results);
+        }
+      })
+    });
   });
 };
