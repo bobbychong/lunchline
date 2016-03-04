@@ -31,7 +31,7 @@ angular.module('lunchline.auth', [])
         console.log("Authenticated successfully with payload:", authData);
         $state.go('menu.list');
       }
-    })
+    });
   }
 
   $scope.signup = function(){
