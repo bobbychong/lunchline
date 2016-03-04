@@ -2,7 +2,7 @@ angular.module('lunchline.list', [])
 
 .controller('listController', function(distance, Data, $scope, Geolocation, $ionicLoading) {
    $scope.data = [];
-   $scope.userLocation = JSON.parse(sessionStorage['locationStorage']);
+   $scope.userLocation = JSON.parse(sessionStorage['locationStorage']) || {};
    $scope.short_name = 'address, city, zip';
    $scope.foodAndLocation = {};
    $scope.search = { foodType: null, location:null };
