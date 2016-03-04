@@ -19,7 +19,7 @@ exports.addUser = function(req, res) {
       throw err;
     }
     // ** TODO **: Rewrite condition that JSON is returned so it doesn't fail with too few results
-    res.send(200);
+    res.sendStatus(200);
   });
 };
 
