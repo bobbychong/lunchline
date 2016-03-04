@@ -16,4 +16,5 @@ module.exports = function(app, express) {
   app.use(helpers.errorHandler);
 
   require('./restRoutes.js')(restRouter);
+  require('./profileRoutes.js')(restRouter);
 };
