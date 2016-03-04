@@ -1,6 +1,6 @@
 angular.module('lunchline.restaurant', [])
 
-.controller('restaurantController', function($scope, Data, Update, Geolocation, $ionicHistory, Favorites, $window) {
+.controller('restaurantController', function($scope, Data, User, Favorites, Update, Geolocation, $ionicHistory, Favorites, $window) {
 
   // get recent updates when you hit back
   $scope.$root.GoBack = function() {
