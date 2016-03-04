@@ -125,3 +125,22 @@ exports.updateWait = function(req, res) {
     });
   });
 };
+
+exports.getRecent = function(req, res) {
+  var array = req.body.recent;
+  var results = [];
+  _.each(array, function(uniqueID){
+    Restaurant.findOne({id: uniqueID}, function(err, obj) {
+      helpers.avgTime(obj, function(color){
+        // if (lat || lng) {
+        //   obj.distance = helpers.distance(lat, lng, obj.geometry.location.lat, obj.geometry.location.lng);
+        // }
+        obj.wait = color;
+        results.push(obj);
+      });
+    });
+  });
+  res.json(results);
+
+
+};
